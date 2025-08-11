@@ -8,7 +8,7 @@ async function fetchPublic(slug: string) {
   return res.json();
 }
 
-export default async function PublicTripPage({ params }: { params: { slug: string } }) {
+export default async function PublicTripPage({ params }: any) {
   const data = await fetchPublic(params.slug);
   return (
     <div className="grid gap-4">
