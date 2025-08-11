@@ -1,0 +1,122 @@
+@import "tailwindcss";
+
+/* Default theme: dark */
+:root {
+  --bg: #0a0a0a;
+  --card: #111112;
+  --muted: rgba(255,255,255,0.72);
+  --muted-2: rgba(255,255,255,0.10);
+  --border: rgba(255,255,255,0.12);
+  /* ClickUp-like accent (violet → pink) */
+  --accent: #a855f7; /* violet-500 */
+  --accent-2: #ec4899; /* pink-500 */
+  --foreground: #e5e5e5;
+}
+
+/* Light theme overrides */
+[data-theme='light'] {
+  --bg: #ffffff;
+  --card: #f8fafc; /* slate-50 */
+  --muted: #334155; /* slate-700 */
+  --muted-2: rgba(0,0,0,0.06);
+  --border: rgba(0,0,0,0.08);
+  --accent: #a855f7;
+  --accent-2: #ec4899;
+  --foreground: #0a0a0a;
+}
+
+/* Inform the browser of current scheme for built-in UI */
+:root { color-scheme: dark; }
+[data-theme='light'] { color-scheme: light; }
+
+body {
+  background: var(--bg);
+  color: var(--foreground);
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+
+/* Shared UI primitives */
+.container {
+  max-width: 72rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 1rem;
+}
+@media (min-width: 768px) {
+  .container { padding: 1.5rem; }
+}
+
+.section {
+  background: color-mix(in oklab, var(--card) 96%, transparent);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 1.25rem;
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.2) inset;
+}
+@media (min-width: 640px) {
+  .section { padding: 2rem; }
+}
+
+.label {
+  font-size: 0.875rem;
+  color: var(--muted);
+}
+
+.input {
+  display: block;
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
+  background: white;
+  color: black;
+  border: 1px solid rgba(0,0,0,0.12);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 2.5rem;
+  padding: 0 1rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+}
+.btn-primary { 
+  background: linear-gradient(135deg, var(--accent-2) 0%, var(--accent) 100%);
+  color: #ffffff;
+}
+.btn-primary:hover { filter: brightness(1.05); }
+.btn-ghost { border: 1px solid var(--border); color: var(--foreground); }
+.btn-ghost:hover { background: rgba(255,255,255,0.06); }
+
+:root {
+  /* align Next theme tokens to our theme tokens */
+  --background: var(--bg);
+  --foreground: var(--foreground);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+/* we force a dark UI regardless of system preference */
+
+body {
+  background: var(--bg);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* readable copy inside sections */
+.section p,
+.section small {
+  color: var(--muted);
+}
