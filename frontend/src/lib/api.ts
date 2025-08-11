@@ -1,4 +1,4 @@
-export const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "https://mako-golden-tetra.ngrok-free.app/api";
+export const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "http://localhost:8000/api";
 
 export type LoginResponse = { access: string; refresh: string };
 
