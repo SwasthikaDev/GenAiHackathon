@@ -26,6 +26,7 @@ class Trip(models.Model):
     is_public = models.BooleanField(default=False)
     public_slug = models.SlugField(max_length=255, unique=True, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     def save(self, *args, **kwargs):
         # Ensure slug only generated when sharing, and uniqueness by suffixing
@@ -50,6 +51,7 @@ class TripStop(models.Model):
     start_date = models.DateField()
     end_date = models.DateField()
     order = models.PositiveIntegerField(default=0)
+    updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
         ordering = ['order', 'start_date']
@@ -64,6 +66,7 @@ class Activity(models.Model):
     cost_amount = models.IntegerField(default=0)
     currency = models.CharField(max_length=10, default='INR')
     notes = models.TextField(blank=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
 
 class ActivityCatalog(models.Model):
@@ -106,11 +109,16 @@ class PersonalizedRec(models.Model):
     """
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='personalized_recs')
     signature = models.CharField(max_length=128, db_index=True)
+    city = models.CharField(max_length=100, blank=True)
+    country = models.CharField(max_length=100, blank=True)
     data = models.JSONField()
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         ordering = ['-created_at']
+        indexes = [
+            models.Index(fields=['city', 'country']),
+        ]
 
     def __str__(self) -> str:
         return f"Rec[{self.user_id}] {self.signature[:8]}... at {self.created_at}"

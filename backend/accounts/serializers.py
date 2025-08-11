@@ -19,6 +19,7 @@ class UserSerializer(serializers.ModelSerializer):
             "city",
             "country",
             "bio",
+            "language",
         ]
 
 
@@ -40,6 +41,16 @@ class SignupSerializer(serializers.ModelSerializer):
             "country",
             "bio",
         ]
+        extra_kwargs = {
+            "email": {"required": True, "allow_blank": False},
+        }
+
+    def validate_email(self, value: str):
+        if not value:
+            raise serializers.ValidationError("Email is required")
+        if User.objects.filter(email__iexact=value).exists():
+            raise serializers.ValidationError("A user with this email already exists")
+        return value
 
     def create(self, validated_data):
         password = validated_data.pop("password")

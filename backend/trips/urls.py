@@ -1,7 +1,7 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from rest_framework_nested.routers import NestedDefaultRouter
-from .views import TripViewSet, TripStopViewSet, ActivityViewSet, CityViewSet, public_itinerary, search_cities, personalized_recs
+from .views import TripViewSet, TripStopViewSet, ActivityViewSet, CityViewSet, public_itinerary, search_cities, personalized_recs, search_activities, copy_public_itinerary
 
 
 router = DefaultRouter()
@@ -20,7 +20,9 @@ urlpatterns = [
     path('', include(trips_router.urls)),
     path('', include(stops_router.urls)),
     path('public/itineraries/<slug:public_slug>', public_itinerary, name='public-itinerary'),
+    path('public/itineraries/<slug:public_slug>/copy', copy_public_itinerary, name='copy-public-itinerary'),
     path('search/cities', search_cities, name='search-cities'),
+    path('search/activities', search_activities, name='search-activities'),
     path('recs/personalized/', personalized_recs, name='personalized-recs'),
 ]
 

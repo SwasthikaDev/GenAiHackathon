@@ -1,0 +1,3 @@
+
+Wrote test_results.json and test_report.txt in /Users/calyirex/Calyirex Technologies Private Limited/Opportunities/2025/August/Odoo Hackathon/MVP/backend
+All checks passed

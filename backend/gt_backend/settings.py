@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 from pathlib import Path
 import os
 from dotenv import load_dotenv
+from corsheaders.defaults import default_headers, default_methods
 from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -51,6 +52,8 @@ for _ng in [
 # Application definition
 
 INSTALLED_APPS = [
+    # Jazzmin must be before django.contrib.admin
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -84,7 +87,7 @@ ROOT_URLCONF = 'gt_backend.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -92,6 +95,9 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+            ],
+            'builtins': [
+                'gt_backend.templatetags.compat',
             ],
         },
     },
@@ -159,6 +165,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
@@ -168,6 +175,19 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+    'DEFAULT_THROTTLE_CLASSES': (
+        'rest_framework.throttling.ScopedRateThrottle',
+        'rest_framework.throttling.UserRateThrottle',
+        'rest_framework.throttling.AnonRateThrottle',
+    ),
+    'DEFAULT_THROTTLE_RATES': {
+        'personalized': os.getenv('THROTTLE_PERSONALIZED', '3/min'),
+        'generate': os.getenv('THROTTLE_GENERATE', '2/min'),
+        'search_cities': os.getenv('THROTTLE_SEARCH_CITIES', '20/min'),
+        'search_activities': os.getenv('THROTTLE_SEARCH_ACTIVITIES', '60/min'),
+        'user': os.getenv('THROTTLE_USER', '1000/day'),
+        'anon': os.getenv('THROTTLE_ANON', '100/day'),
+    },
 }
 
 SPECTACULAR_SETTINGS = {
@@ -176,12 +196,40 @@ SPECTACULAR_SETTINGS = {
     'VERSION': '0.1.0',
 }
 
+# Email (for password reset) - console by default
+EMAIL_BACKEND = os.getenv('DJANGO_EMAIL_BACKEND', 'django.core.mail.backends.console.EmailBackend')
+DEFAULT_FROM_EMAIL = os.getenv('DJANGO_DEFAULT_FROM_EMAIL', 'no-reply@globaltrotters.app')
+
+# Jazzmin minimal config (optional branding)
+JAZZMIN_SETTINGS = {
+    "site_title": "GlobalTrotters Admin",
+    "site_header": "GlobalTrotters",
+    "welcome_sign": "Welcome to GlobalTrotters Admin",
+    "show_ui_builder": False,
+}
+
 # CORS
 CORS_ALLOW_CREDENTIALS = True
 _cors_origins = os.getenv("DJANGO_CORS_ALLOWED_ORIGINS", "").split(",") if os.getenv("DJANGO_CORS_ALLOWED_ORIGINS") else []
 CORS_ALLOWED_ORIGINS = [o.strip() for o in _cors_origins if o.strip()]
 # Allow any ngrok-free.app frontend origin during development
 CORS_ALLOWED_ORIGIN_REGEXES = [r"^https://.*\\.ngrok-free\\.app$"]
+
+# Temporarily allow all origins during development to avoid preflight mismatches
+CORS_ALLOW_ALL_ORIGINS = True
+
+# Be explicit about allowed headers/methods to satisfy strict browsers
+CORS_ALLOW_HEADERS = list(default_headers) + [
+    "content-type",
+    "authorization",
+    "x-requested-with",
+    "x-csrftoken",
+    "sec-ch-ua",
+    "sec-ch-ua-mobile",
+    "sec-ch-ua-platform",
+]
+CORS_ALLOW_METHODS = list(default_methods)
+CORS_PREFLIGHT_MAX_AGE = int(os.getenv("CORS_PREFLIGHT_MAX_AGE", "86400"))
 
 # CSRF trusted (mainly if cookies are used); safe for dev with ngrok
 CSRF_TRUSTED_ORIGINS = list({

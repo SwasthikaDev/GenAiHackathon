@@ -1,0 +1,386 @@
+{
+  "base": "https://mako-golden-tetra.ngrok-free.app/api",
+  "username": "apitest_1754923230",
+  "check_username": {
+    "status": 200,
+    "body": {
+      "username": "apitest_1754923230",
+      "available": true
+    }
+  },
+  "checks": {
+    "check_username_ok": {
+      "pass": true,
+      "details": {
+        "status": 200,
+        "body": {
+          "username": "apitest_1754923230",
+          "available": true
+        }
+      }
+    },
+    "signup_status_ok": {
+      "pass": true,
+      "details": {
+        "status": 201,
+        "body": {
+          "username": "apitest_1754923230",
+          "email": "apitest_1754923230@example.com",
+          "display_name": "API Tester",
+          "avatar_url": "https://i.pravatar.cc/100?img=5",
+          "phone_number": "+1-555-0100",
+          "city": "Bengaluru",
+          "country": "India",
+          "bio": "Automated API test user"
+        }
+      }
+    },
+    "login_ok": {
+      "pass": true,
+      "details": {
+        "status": 200,
+        "body": {
+          "refresh": "<redacted>",
+          "access": "<redacted>"
+        }
+      }
+    },
+    "recs_ok": {
+      "pass": true,
+      "details": {
+        "status": 200,
+        "body": {
+          "bannerTitle": "Bengaluru's Curated Getaways",
+          "blurb": "Tech-savvy escapes blending culture, nature, and urban energy for your next adventure.",
+          "topSelections": [
+            {
+              "name": "Coorg",
+              "country": "India",
+              "reason": "Lush coffee estates near Bengaluru"
+            },
+            {
+              "name": "Hampi",
+              "country": "India",
+              "reason": "Ancient ruins & boulder landscapes"
+            },
+            {
+              "name": "Gokarna",
+              "country": "India",
+              "reason": "Serene beaches with spiritual vibes"
+            },
+            {
+              "name": "Colombo",
+              "country": "Sri Lanka",
+              "reason": "Coastal culture and tech hubs"
+            },
+            {
+              "name": "Bangkok",
+              "country": "Thailand",
+              "reason": "Dynamic city with digital nomad scene"
+            },
+            {
+              "name": "Singapore",
+              "country": "Singapore",
+              "reason": "Futuristic gardens and urban innovation"
+            }
+          ],
+          "groupings": [
+            "Quick Escapes",
+            "Cultural Journeys",
+            "Tech Havens"
+          ],
+          "sortOptions": [
+            "Distance",
+            "Popularity",
+            "Adventure Level"
+          ],
+          "source": "openrouter"
+        }
+      }
+    },
+    "search_cities_ok": {
+      "pass": true,
+      "details": {
+        "status": 200,
+        "count": 4
+      }
+    },
+    "ensure_city_ok": {
+      "pass": true,
+      "details": {
+        "status": 200,
+        "body": {
+          "id": 3,
+          "name": "Paris",
+          "country": "France",
+          "region": "",
+          "cost_index": 3,
+          "popularity": 4
+        }
+      }
+    },
+    "create_trip_ok": {
+      "pass": true,
+      "details": {
+        "status": 201,
+        "body": {
+          "id": 6,
+          "name": "API Test Trip 1754923230",
+          "start_date": "2025-09-10",
+          "end_date": "2025-09-14",
+          "origin_city": {
+            "id": 3,
+            "name": "Paris",
+            "country": "France",
+            "region": "",
+            "cost_index": 3,
+            "popularity": 4
+          },
+          "description": "",
+          "cover_image": "",
+          "is_public": false,
+          "public_slug": null,
+          "stops": []
+        }
+      }
+    },
+    "add_stop_ok": {
+      "pass": true,
+      "details": {
+        "status": 201,
+        "body": {
+          "id": 5,
+          "trip": 6,
+          "city": {
+            "id": 3,
+            "name": "Paris",
+            "country": "France",
+            "region": "",
+            "cost_index": 3,
+            "popularity": 4
+          },
+          "start_date": "2025-09-10",
+          "end_date": "2025-09-12",
+          "order": 1,
+          "activities": []
+        }
+      }
+    },
+    "add_activity_ok": {
+      "pass": true,
+      "details": {
+        "status": 201,
+        "body": {
+          "id": 4,
+          "trip_stop": 5,
+          "title": "Walking Tour",
+          "category": "sightseeing",
+          "start_time": null,
+          "end_time": null,
+          "cost_amount": 2500,
+          "currency": "INR",
+          "notes": ""
+        }
+      }
+    },
+    "budget_ok": {
+      "pass": true,
+      "details": {
+        "status": 200,
+        "body": {
+          "trip_id": 6,
+          "currency": "USD",
+          "total_cost_minor": 2500
+        }
+      }
+    },
+    "share_ok": {
+      "pass": true,
+      "details": {
+        "status": 200,
+        "body": {
+          "public_slug": "9-api-test-trip-1754923230-6"
+        }
+      }
+    },
+    "public_ok": {
+      "pass": true,
+      "details": {
+        "status": 200,
+        "body_sample_keys": [
+          "id",
+          "name",
+          "start_date",
+          "end_date",
+          "origin_city",
+          "description"
+        ]
+      }
+    }
+  },
+  "signup": {
+    "status": 201,
+    "body": {
+      "username": "apitest_1754923230",
+      "email": "apitest_1754923230@example.com",
+      "display_name": "API Tester",
+      "avatar_url": "https://i.pravatar.cc/100?img=5",
+      "phone_number": "+1-555-0100",
+      "city": "Bengaluru",
+      "country": "India",
+      "bio": "Automated API test user"
+    }
+  },
+  "login": {
+    "status": 200,
+    "body": {
+      "refresh": "<redacted>",
+      "access": "<redacted>"
+    }
+  },
+  "recs": {
+    "status": 200,
+    "body": {
+      "bannerTitle": "Bengaluru's Curated Getaways",
+      "blurb": "Tech-savvy escapes blending culture, nature, and urban energy for your next adventure.",
+      "topSelections": [
+        {
+          "name": "Coorg",
+          "country": "India",
+          "reason": "Lush coffee estates near Bengaluru"
+        },
+        {
+          "name": "Hampi",
+          "country": "India",
+          "reason": "Ancient ruins & boulder landscapes"
+        },
+        {
+          "name": "Gokarna",
+          "country": "India",
+          "reason": "Serene beaches with spiritual vibes"
+        },
+        {
+          "name": "Colombo",
+          "country": "Sri Lanka",
+          "reason": "Coastal culture and tech hubs"
+        },
+        {
+          "name": "Bangkok",
+          "country": "Thailand",
+          "reason": "Dynamic city with digital nomad scene"
+        },
+        {
+          "name": "Singapore",
+          "country": "Singapore",
+          "reason": "Futuristic gardens and urban innovation"
+        }
+      ],
+      "groupings": [
+        "Quick Escapes",
+        "Cultural Journeys",
+        "Tech Havens"
+      ],
+      "sortOptions": [
+        "Distance",
+        "Popularity",
+        "Adventure Level"
+      ],
+      "source": "openrouter"
+    }
+  },
+  "search_cities": {
+    "status": 200,
+    "count": 4
+  },
+  "ensure_city": {
+    "status": 200,
+    "body": {
+      "id": 3,
+      "name": "Paris",
+      "country": "France",
+      "region": "",
+      "cost_index": 3,
+      "popularity": 4
+    }
+  },
+  "create_trip": {
+    "status": 201,
+    "body": {
+      "id": 6,
+      "name": "API Test Trip 1754923230",
+      "start_date": "2025-09-10",
+      "end_date": "2025-09-14",
+      "origin_city": {
+        "id": 3,
+        "name": "Paris",
+        "country": "France",
+        "region": "",
+        "cost_index": 3,
+        "popularity": 4
+      },
+      "description": "",
+      "cover_image": "",
+      "is_public": false,
+      "public_slug": null,
+      "stops": []
+    }
+  },
+  "add_stop": {
+    "status": 201,
+    "body": {
+      "id": 5,
+      "trip": 6,
+      "city": {
+        "id": 3,
+        "name": "Paris",
+        "country": "France",
+        "region": "",
+        "cost_index": 3,
+        "popularity": 4
+      },
+      "start_date": "2025-09-10",
+      "end_date": "2025-09-12",
+      "order": 1,
+      "activities": []
+    }
+  },
+  "add_activity": {
+    "status": 201,
+    "body": {
+      "id": 4,
+      "trip_stop": 5,
+      "title": "Walking Tour",
+      "category": "sightseeing",
+      "start_time": null,
+      "end_time": null,
+      "cost_amount": 2500,
+      "currency": "INR",
+      "notes": ""
+    }
+  },
+  "budget": {
+    "status": 200,
+    "body": {
+      "trip_id": 6,
+      "currency": "USD",
+      "total_cost_minor": 2500
+    }
+  },
+  "share": {
+    "status": 200,
+    "body": {
+      "public_slug": "9-api-test-trip-1754923230-6"
+    }
+  },
+  "public": {
+    "status": 200,
+    "body_sample_keys": [
+      "id",
+      "name",
+      "start_date",
+      "end_date",
+      "origin_city",
+      "description"
+    ]
+  }
+}
