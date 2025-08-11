@@ -1,0 +1,234 @@
+{
+  "info": {
+    "name": "GlobalTrotters API",
+    "_postman_id": "a4c3c9b2-1c6e-4a7a-9b2f-000000000001",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:8000/api" },
+    { "key": "username", "value": "demo" },
+    { "key": "password", "value": "demo123" },
+    { "key": "accessToken", "value": "" },
+    { "key": "refreshToken", "value": "" },
+    { "key": "tripId", "value": "" },
+    { "key": "stopId", "value": "" },
+    { "key": "activityId", "value": "" },
+    { "key": "publicSlug", "value": "" },
+    { "key": "citySearch", "value": "Paris" },
+    { "key": "cityId", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Signup",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "url": "{{baseUrl}}/accounts/signup",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"{{username}}\",\n  \"email\": \"{{username}}@example.com\",\n  \"password\": \"{{password}}\"\n}"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Login (get access/refresh)",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "url": "{{baseUrl}}/accounts/login",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"{{username}}\",\n  \"password\": \"{{password}}\"\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const json = pm.response.json();",
+                  "pm.environment.set('accessToken', json.access);",
+                  "if (json.refresh) pm.environment.set('refreshToken', json.refresh);",
+                  "pm.test('access token present', () => pm.expect(json.access).to.be.a('string'));"
+                ]
+              }
+            }
+          ],
+          "response": []
+        },
+        {
+          "name": "Refresh access",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "url": "{{baseUrl}}/accounts/refresh",
+            "body": { "mode": "raw", "raw": "{\n  \"refresh\": \"{{refreshToken}}\"\n}" }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": { "type": "text/javascript", "exec": [
+                "const json = pm.response.json();",
+                "pm.environment.set('accessToken', json.access);",
+                "pm.test('new access token present', () => pm.expect(json.access).to.be.a('string'));"
+              ]}
+            }
+          ]
+        },
+        {
+          "name": "Profile (GET)",
+          "request": {
+            "method": "GET",
+            "header": [ { "key": "Authorization", "value": "Bearer {{accessToken}}" } ],
+            "url": "{{baseUrl}}/accounts/profile"
+          }
+        },
+        {
+          "name": "Profile (PUT display_name)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{accessToken}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": "{{baseUrl}}/accounts/profile",
+            "body": { "mode": "raw", "raw": "{\n  \"display_name\": \"Traveler\"\n}" }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Trips",
+      "item": [
+        {
+          "name": "List trips",
+          "request": {
+            "method": "GET",
+            "header": [ { "key": "Authorization", "value": "Bearer {{accessToken}}" } ],
+            "url": "{{baseUrl}}/trips/"
+          }
+        },
+        {
+          "name": "Create trip",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{accessToken}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": "{{baseUrl}}/trips/",
+            "body": { "mode": "raw", "raw": "{\n  \"name\": \"My Demo Trip\",\n  \"start_date\": \"2025-08-15\",\n  \"end_date\": \"2025-08-20\"\n}" }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": { "type": "text/javascript", "exec": [
+                "const json = pm.response.json();",
+                "pm.environment.set('tripId', json.id);",
+                "pm.test('trip id saved', () => pm.expect(json.id).to.be.a('number'));"
+              ]}
+            }
+          ]
+        },
+        {
+          "name": "Get trip",
+          "request": {
+            "method": "GET",
+            "header": [ { "key": "Authorization", "value": "Bearer {{accessToken}}" } ],
+            "url": "{{baseUrl}}/trips/{{tripId}}/"
+          }
+        },
+        {
+          "name": "Share trip (get public_slug)",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Authorization", "value": "Bearer {{accessToken}}" } ],
+            "url": "{{baseUrl}}/trips/{{tripId}}/share"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": { "type": "text/javascript", "exec": [
+                "const json = pm.response.json();",
+                "pm.environment.set('publicSlug', json.public_slug || json.publicSlug || '');",
+                "pm.test('public slug saved', () => pm.expect(pm.environment.get('publicSlug')).to.be.a('string'));"
+              ]}
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Cities",
+      "item": [
+        {
+          "name": "Search cities",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/cities/?search={{citySearch}}"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Stops & Activities",
+      "item": [
+        {
+          "name": "Create stop",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{accessToken}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": "{{baseUrl}}/trips/{{tripId}}/stops/",
+            "body": { "mode": "raw", "raw": "{\n  \"city_id\": {{cityId}},\n  \"start_date\": \"2025-08-16\",\n  \"end_date\": \"2025-08-18\",\n  \"order\": 1\n}" }
+          },
+          "event": [
+            { "listen": "test", "script": { "type": "text/javascript", "exec": [
+              "const json = pm.response.json();",
+              "pm.environment.set('stopId', json.id);",
+              "pm.test('stop id saved', () => pm.expect(json.id).to.be.a('number'));"
+            ]}}
+          ]
+        },
+        {
+          "name": "Add activity",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{accessToken}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": "{{baseUrl}}/trips/{{tripId}}/stops/{{stopId}}/activities/",
+            "body": { "mode": "raw", "raw": "{\n  \"title\": \"Museum\",\n  \"cost_amount\": 2500,\n  \"currency\": \"USD\"\n}" }
+          },
+          "event": [
+            { "listen": "test", "script": { "type": "text/javascript", "exec": [
+              "const json = pm.response.json();",
+              "pm.environment.set('activityId', json.id || '');",
+              "pm.test('activity created', () => pm.expect(pm.response.code).to.eql(201));"
+            ]}}
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Public",
+      "item": [
+        {
+          "name": "Get public itinerary",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/public/itineraries/{{publicSlug}}"
+          }
+        }
+      ]
+    }
+  ]
+}
