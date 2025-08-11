@@ -1,0 +1,880 @@
+[
+  {
+    "method": "GET",
+    "url": "https://mako-golden-tetra.ngrok-free.app/api/accounts/check-username?username=apitest_1754942559",
+    "auth": false,
+    "status": 200,
+    "response_json": {
+      "username": "apitest_1754942559",
+      "available": true
+    }
+  },
+  {
+    "method": "POST",
+    "url": "https://mako-golden-tetra.ngrok-free.app/api/accounts/signup",
+    "auth": false,
+    "request_json": {
+      "username": "apitest_1754942559",
+      "password": "ApiTest!234",
+      "email": "apitest_1754942559@example.com",
+      "first_name": "API",
+      "last_name": "Tester",
+      "display_name": "API Tester",
+      "avatar_url": "https://i.pravatar.cc/100?img=5",
+      "phone_number": "+1-555-0100",
+      "city": "Bengaluru",
+      "country": "India",
+      "bio": "Automated API test user"
+    },
+    "status": 201,
+    "response_json": {
+      "username": "apitest_1754942559",
+      "email": "apitest_1754942559@example.com",
+      "display_name": "API Tester",
+      "avatar_url": "https://i.pravatar.cc/100?img=5",
+      "phone_number": "+1-555-0100",
+      "city": "Bengaluru",
+      "country": "India",
+      "bio": "Automated API test user"
+    }
+  },
+  {
+    "method": "POST",
+    "url": "https://mako-golden-tetra.ngrok-free.app/api/accounts/login",
+    "auth": false,
+    "request_json": {
+      "username": "apitest_1754942559",
+      "password": "ApiTest!234"
+    },
+    "status": 200,
+    "response_json": {
+      "refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc1NTU0NzM2MCwiaWF0IjoxNzU0OTQyNTYwLCJqdGkiOiI0OWEwNDEwOGNjNDU0NmQyYTI3NDMwYjVmYWQ5YThkOCIsInVzZXJfaWQiOjE0fQ.Hv9isGqqS1731uUz_JGUpVq47DKhTs_B4KcVXp_2KxI",
+      "access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzU0OTQ2MTYwLCJpYXQiOjE3NTQ5NDI1NjAsImp0aSI6ImMxNWUwM2ZiZmVhNjQ4YWFhMzAyOGUxNGRlOTEwZWFlIiwidXNlcl9pZCI6MTR9._6keyyntnGlNOON4AgdRihTVoo4Yxuq5KcOXIcjKvCw"
+    }
+  },
+  {
+    "method": "GET",
+    "url": "https://mako-golden-tetra.ngrok-free.app/api/search/cities?q=Paris",
+    "auth": false,
+    "status": 200,
+    "response_json": [
+      {
+        "id": 1,
+        "name": "Paris",
+        "country": "France",
+        "lat": "48.8534951",
+        "lon": "2.3483915"
+      },
+      {
+        "id": 1,
+        "name": "Paris",
+        "country": "France",
+        "lat": "48.8588897",
+        "lon": "2.3200410"
+      },
+      {
+        "id": null,
+        "name": "Paris",
+        "country": "United States",
+        "lat": "33.6617962",
+        "lon": "-95.5555130"
+      },
+      {
+        "id": 1,
+        "name": "Paris",
+        "country": "France",
+        "lat": "48.8588897",
+        "lon": "2.3200410"
+      }
+    ]
+  },
+  {
+    "method": "POST",
+    "url": "https://mako-golden-tetra.ngrok-free.app/api/cities/ensure/",
+    "auth": true,
+    "request_json": {
+      "name": "Paris",
+      "country": "France",
+      "region": "",
+      "cost_index": 3,
+      "popularity": 4
+    },
+    "status": 200,
+    "response_json": {
+      "id": 1,
+      "name": "Paris",
+      "country": "France",
+      "region": "",
+      "cost_index": 3,
+      "popularity": 4
+    }
+  },
+  {
+    "method": "POST",
+    "url": "https://mako-golden-tetra.ngrok-free.app/api/trips/",
+    "auth": true,
+    "request_json": {
+      "name": "API Test Trip 1754942559",
+      "start_date": "2025-09-10",
+      "end_date": "2025-09-14",
+      "origin_city_id": 1
+    },
+    "status": 201,
+    "response_json": {
+      "id": 9,
+      "name": "API Test Trip 1754942559",
+      "start_date": "2025-09-10",
+      "end_date": "2025-09-14",
+      "origin_city": {
+        "id": 1,
+        "name": "Paris",
+        "country": "France",
+        "region": "",
+        "cost_index": 3,
+        "popularity": 4
+      },
+      "description": "",
+      "cover_image": "",
+      "is_public": false,
+      "public_slug": null,
+      "stops": []
+    }
+  },
+  {
+    "method": "POST",
+    "url": "https://mako-golden-tetra.ngrok-free.app/api/trips/9/generate/",
+    "auth": true,
+    "request_json": {
+      "days_per_city": 2,
+      "currency": "INR"
+    },
+    "status": 200,
+    "response_json": {
+      "status": "generated",
+      "stops": [
+        {
+          "id": 23,
+          "trip": 9,
+          "city": {
+            "id": 1,
+            "name": "Paris",
+            "country": "France",
+            "region": "",
+            "cost_index": 3,
+            "popularity": 4
+          },
+          "start_date": "2025-09-10",
+          "end_date": "2025-09-12",
+          "order": 1,
+          "activities": [
+            {
+              "id": 67,
+              "trip_stop": 23,
+              "title": "Eiffel Tower Visit",
+              "category": "Landmark",
+              "start_time": null,
+              "end_time": null,
+              "cost_amount": 280000,
+              "currency": "INR",
+              "notes": ""
+            },
+            {
+              "id": 68,
+              "trip_stop": 23,
+              "title": "Louvre Museum Tour",
+              "category": "Museum",
+              "start_time": null,
+              "end_time": null,
+              "cost_amount": 170000,
+              "currency": "INR",
+              "notes": ""
+            },
+            {
+              "id": 69,
+              "trip_stop": 23,
+              "title": "Seine River Cruise",
+              "category": "Sightseeing",
+              "start_time": null,
+              "end_time": null,
+              "cost_amount": 120000,
+              "currency": "INR",
+              "notes": ""
+            },
+            {
+              "id": 70,
+              "trip_stop": 23,
+              "title": "Montmartre Walking Tour",
+              "category": "Cultural",
+              "start_time": null,
+              "end_time": null,
+              "cost_amount": 0,
+              "currency": "INR",
+              "notes": ""
+            }
+          ]
+        },
+        {
+          "id": 24,
+          "trip": 9,
+          "city": {
+            "id": 8,
+            "name": "Brussels",
+            "country": "",
+            "region": "",
+            "cost_index": null,
+            "popularity": null
+          },
+          "start_date": "2025-09-12",
+          "end_date": "2025-09-14",
+          "order": 2,
+          "activities": [
+            {
+              "id": 71,
+              "trip_stop": 24,
+              "title": "Grand Place Exploration",
+              "category": "Historic Site",
+              "start_time": null,
+              "end_time": null,
+              "cost_amount": 0,
+              "currency": "INR",
+              "notes": ""
+            },
+            {
+              "id": 72,
+              "trip_stop": 24,
+              "title": "Atomium Visit",
+              "category": "Landmark",
+              "start_time": null,
+              "end_time": null,
+              "cost_amount": 120000,
+              "currency": "INR",
+              "notes": ""
+            },
+            {
+              "id": 73,
+              "trip_stop": 24,
+              "title": "Belgian Chocolate Workshop",
+              "category": "Food",
+              "start_time": null,
+              "end_time": null,
+              "cost_amount": 90000,
+              "currency": "INR",
+              "notes": ""
+            },
+            {
+              "id": 74,
+              "trip_stop": 24,
+              "title": "EU Parliament Tour",
+              "category": "Educational",
+              "start_time": null,
+              "end_time": null,
+              "cost_amount": 0,
+              "currency": "INR",
+              "notes": ""
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "method": "POST",
+    "url": "https://mako-golden-tetra.ngrok-free.app/api/trips/9/stops/",
+    "auth": true,
+    "request_json": {
+      "city_id": 1,
+      "start_date": "2025-09-10",
+      "end_date": "2025-09-12",
+      "order": 1
+    },
+    "status": 201,
+    "response_json": {
+      "id": 25,
+      "trip": 9,
+      "city": {
+        "id": 1,
+        "name": "Paris",
+        "country": "France",
+        "region": "",
+        "cost_index": 3,
+        "popularity": 4
+      },
+      "start_date": "2025-09-10",
+      "end_date": "2025-09-12",
+      "order": 1,
+      "activities": []
+    }
+  },
+  {
+    "method": "POST",
+    "url": "https://mako-golden-tetra.ngrok-free.app/api/trips/9/stops/25/activities/",
+    "auth": true,
+    "request_json": {
+      "title": "Walking Tour",
+      "category": "sightseeing",
+      "cost_amount": 2500,
+      "currency": "INR"
+    },
+    "status": 201,
+    "response_json": {
+      "id": 75,
+      "trip_stop": 25,
+      "title": "Walking Tour",
+      "category": "sightseeing",
+      "start_time": null,
+      "end_time": null,
+      "cost_amount": 2500,
+      "currency": "INR",
+      "notes": ""
+    }
+  },
+  {
+    "method": "POST",
+    "url": "https://mako-golden-tetra.ngrok-free.app/api/trips/9/stops/reorder/",
+    "auth": true,
+    "request_json": {
+      "order": [
+        25
+      ]
+    },
+    "status": 200,
+    "response_json": {
+      "status": "ok",
+      "stops": [
+        {
+          "id": 25,
+          "trip": 9,
+          "city": {
+            "id": 1,
+            "name": "Paris",
+            "country": "France",
+            "region": "",
+            "cost_index": 3,
+            "popularity": 4
+          },
+          "start_date": "2025-09-10",
+          "end_date": "2025-09-12",
+          "order": 1,
+          "activities": [
+            {
+              "id": 75,
+              "trip_stop": 25,
+              "title": "Walking Tour",
+              "category": "sightseeing",
+              "start_time": null,
+              "end_time": null,
+              "cost_amount": 2500,
+              "currency": "INR",
+              "notes": ""
+            }
+          ]
+        },
+        {
+          "id": 23,
+          "trip": 9,
+          "city": {
+            "id": 1,
+            "name": "Paris",
+            "country": "France",
+            "region": "",
+            "cost_index": 3,
+            "popularity": 4
+          },
+          "start_date": "2025-09-10",
+          "end_date": "2025-09-12",
+          "order": 2,
+          "activities": [
+            {
+              "id": 67,
+              "trip_stop": 23,
+              "title": "Eiffel Tower Visit",
+              "category": "Landmark",
+              "start_time": null,
+              "end_time": null,
+              "cost_amount": 280000,
+              "currency": "INR",
+              "notes": ""
+            },
+            {
+              "id": 68,
+              "trip_stop": 23,
+              "title": "Louvre Museum Tour",
+              "category": "Museum",
+              "start_time": null,
+              "end_time": null,
+              "cost_amount": 170000,
+              "currency": "INR",
+              "notes": ""
+            },
+            {
+              "id": 69,
+              "trip_stop": 23,
+              "title": "Seine River Cruise",
+              "category": "Sightseeing",
+              "start_time": null,
+              "end_time": null,
+              "cost_amount": 120000,
+              "currency": "INR",
+              "notes": ""
+            },
+            {
+              "id": 70,
+              "trip_stop": 23,
+              "title": "Montmartre Walking Tour",
+              "category": "Cultural",
+              "start_time": null,
+              "end_time": null,
+              "cost_amount": 0,
+              "currency": "INR",
+              "notes": ""
+            }
+          ]
+        },
+        {
+          "id": 24,
+          "trip": 9,
+          "city": {
+            "id": 8,
+            "name": "Brussels",
+            "country": "",
+            "region": "",
+            "cost_index": null,
+            "popularity": null
+          },
+          "start_date": "2025-09-12",
+          "end_date": "2025-09-14",
+          "order": 3,
+          "activities": [
+            {
+              "id": 71,
+              "trip_stop": 24,
+              "title": "Grand Place Exploration",
+              "category": "Historic Site",
+              "start_time": null,
+              "end_time": null,
+              "cost_amount": 0,
+              "currency": "INR",
+              "notes": ""
+            },
+            {
+              "id": 72,
+              "trip_stop": 24,
+              "title": "Atomium Visit",
+              "category": "Landmark",
+              "start_time": null,
+              "end_time": null,
+              "cost_amount": 120000,
+              "currency": "INR",
+              "notes": ""
+            },
+            {
+              "id": 73,
+              "trip_stop": 24,
+              "title": "Belgian Chocolate Workshop",
+              "category": "Food",
+              "start_time": null,
+              "end_time": null,
+              "cost_amount": 90000,
+              "currency": "INR",
+              "notes": ""
+            },
+            {
+              "id": 74,
+              "trip_stop": 24,
+              "title": "EU Parliament Tour",
+              "category": "Educational",
+              "start_time": null,
+              "end_time": null,
+              "cost_amount": 0,
+              "currency": "INR",
+              "notes": ""
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "method": "GET",
+    "url": "https://mako-golden-tetra.ngrok-free.app/api/trips/9/budget",
+    "auth": true,
+    "status": 200,
+    "response_json": {
+      "trip_id": 9,
+      "currency": "INR",
+      "total_cost_minor": 782500
+    }
+  },
+  {
+    "method": "GET",
+    "url": "https://mako-golden-tetra.ngrok-free.app/api/trips/9/budget/summary",
+    "auth": true,
+    "status": 200,
+    "response_json": {
+      "trip_id": 9,
+      "currency": "INR",
+      "total_minor": 782500,
+      "avg_per_day_minor": 195625,
+      "num_activities": 9,
+      "categories": {
+        "activities": 692500,
+        "meals": 90000,
+        "transport": 0,
+        "stay": 0,
+        "other": 0
+      },
+      "per_city": [
+        {
+          "city": {
+            "id": 1,
+            "name": "Paris",
+            "country": "France"
+          },
+          "total_minor": 2500,
+          "categories": {
+            "activities": 2500,
+            "meals": 0,
+            "transport": 0,
+            "stay": 0,
+            "other": 0
+          }
+        },
+        {
+          "city": {
+            "id": 1,
+            "name": "Paris",
+            "country": "France"
+          },
+          "total_minor": 570000,
+          "categories": {
+            "activities": 570000,
+            "meals": 0,
+            "transport": 0,
+            "stay": 0,
+            "other": 0
+          }
+        },
+        {
+          "city": {
+            "id": 8,
+            "name": "Brussels",
+            "country": ""
+          },
+          "total_minor": 210000,
+          "categories": {
+            "activities": 120000,
+            "meals": 90000,
+            "transport": 0,
+            "stay": 0,
+            "other": 0
+          }
+        }
+      ],
+      "days": 4
+    }
+  },
+  {
+    "method": "GET",
+    "url": "https://mako-golden-tetra.ngrok-free.app/api/trips/9/calendar",
+    "auth": true,
+    "status": 200,
+    "response_json": {
+      "trip_id": 9,
+      "start_date": "2025-09-10",
+      "end_date": "2025-09-14",
+      "total_days": 4,
+      "days": [
+        {
+          "date": "2025-09-10",
+          "day_index": 1,
+          "stop_id": 25,
+          "stop_order": 1,
+          "city": {
+            "id": 1,
+            "name": "Paris",
+            "country": "France"
+          },
+          "activities": [
+            {
+              "id": 75,
+              "title": "Walking Tour",
+              "category": "sightseeing",
+              "start_time": null,
+              "end_time": null,
+              "cost_amount": 2500,
+              "currency": "INR"
+            }
+          ]
+        },
+        {
+          "date": "2025-09-11",
+          "day_index": 2,
+          "stop_id": 25,
+          "stop_order": 1,
+          "city": {
+            "id": 1,
+            "name": "Paris",
+            "country": "France"
+          },
+          "activities": []
+        },
+        {
+          "date": "2025-09-12",
+          "day_index": 3,
+          "stop_id": 24,
+          "stop_order": 3,
+          "city": {
+            "id": 8,
+            "name": "Brussels",
+            "country": ""
+          },
+          "activities": [
+            {
+              "id": 71,
+              "title": "Grand Place Exploration",
+              "category": "Historic Site",
+              "start_time": null,
+              "end_time": null,
+              "cost_amount": 0,
+              "currency": "INR"
+            },
+            {
+              "id": 72,
+              "title": "Atomium Visit",
+              "category": "Landmark",
+              "start_time": null,
+              "end_time": null,
+              "cost_amount": 120000,
+              "currency": "INR"
+            }
+          ]
+        },
+        {
+          "date": "2025-09-13",
+          "day_index": 4,
+          "stop_id": 24,
+          "stop_order": 3,
+          "city": {
+            "id": 8,
+            "name": "Brussels",
+            "country": ""
+          },
+          "activities": [
+            {
+              "id": 73,
+              "title": "Belgian Chocolate Workshop",
+              "category": "Food",
+              "start_time": null,
+              "end_time": null,
+              "cost_amount": 90000,
+              "currency": "INR"
+            },
+            {
+              "id": 74,
+              "title": "EU Parliament Tour",
+              "category": "Educational",
+              "start_time": null,
+              "end_time": null,
+              "cost_amount": 0,
+              "currency": "INR"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "method": "POST",
+    "url": "https://mako-golden-tetra.ngrok-free.app/api/trips/9/share/",
+    "auth": true,
+    "status": 200,
+    "response_json": {
+      "public_slug": "14-api-test-trip-1754942559-9"
+    }
+  },
+  {
+    "method": "GET",
+    "url": "https://mako-golden-tetra.ngrok-free.app/api/public/itineraries/14-api-test-trip-1754942559-9",
+    "auth": false,
+    "status": 200,
+    "response_json": {
+      "id": 9,
+      "name": "API Test Trip 1754942559",
+      "start_date": "2025-09-10",
+      "end_date": "2025-09-14",
+      "origin_city": {
+        "id": 1,
+        "name": "Paris",
+        "country": "France",
+        "region": "",
+        "cost_index": 3,
+        "popularity": 4
+      },
+      "description": "",
+      "cover_image": "",
+      "is_public": true,
+      "public_slug": "14-api-test-trip-1754942559-9",
+      "stops": [
+        {
+          "id": 25,
+          "trip": 9,
+          "city": {
+            "id": 1,
+            "name": "Paris",
+            "country": "France",
+            "region": "",
+            "cost_index": 3,
+            "popularity": 4
+          },
+          "start_date": "2025-09-10",
+          "end_date": "2025-09-12",
+          "order": 1,
+          "activities": [
+            {
+              "id": 75,
+              "trip_stop": 25,
+              "title": "Walking Tour",
+              "category": "sightseeing",
+              "start_time": null,
+              "end_time": null,
+              "cost_amount": 2500,
+              "currency": "INR",
+              "notes": ""
+            }
+          ]
+        },
+        {
+          "id": 23,
+          "trip": 9,
+          "city": {
+            "id": 1,
+            "name": "Paris",
+            "country": "France",
+            "region": "",
+            "cost_index": 3,
+            "popularity": 4
+          },
+          "start_date": "2025-09-10",
+          "end_date": "2025-09-12",
+          "order": 2,
+          "activities": [
+            {
+              "id": 67,
+              "trip_stop": 23,
+              "title": "Eiffel Tower Visit",
+              "category": "Landmark",
+              "start_time": null,
+              "end_time": null,
+              "cost_amount": 280000,
+              "currency": "INR",
+              "notes": ""
+            },
+            {
+              "id": 68,
+              "trip_stop": 23,
+              "title": "Louvre Museum Tour",
+              "category": "Museum",
+              "start_time": null,
+              "end_time": null,
+              "cost_amount": 170000,
+              "currency": "INR",
+              "notes": ""
+            },
+            {
+              "id": 69,
+              "trip_stop": 23,
+              "title": "Seine River Cruise",
+              "category": "Sightseeing",
+              "start_time": null,
+              "end_time": null,
+              "cost_amount": 120000,
+              "currency": "INR",
+              "notes": ""
+            },
+            {
+              "id": 70,
+              "trip_stop": 23,
+              "title": "Montmartre Walking Tour",
+              "category": "Cultural",
+              "start_time": null,
+              "end_time": null,
+              "cost_amount": 0,
+              "currency": "INR",
+              "notes": ""
+            }
+          ]
+        },
+        {
+          "id": 24,
+          "trip": 9,
+          "city": {
+            "id": 8,
+            "name": "Brussels",
+            "country": "",
+            "region": "",
+            "cost_index": null,
+            "popularity": null
+          },
+          "start_date": "2025-09-12",
+          "end_date": "2025-09-14",
+          "order": 3,
+          "activities": [
+            {
+              "id": 71,
+              "trip_stop": 24,
+              "title": "Grand Place Exploration",
+              "category": "Historic Site",
+              "start_time": null,
+              "end_time": null,
+              "cost_amount": 0,
+              "currency": "INR",
+              "notes": ""
+            },
+            {
+              "id": 72,
+              "trip_stop": 24,
+              "title": "Atomium Visit",
+              "category": "Landmark",
+              "start_time": null,
+              "end_time": null,
+              "cost_amount": 120000,
+              "currency": "INR",
+              "notes": ""
+            },
+            {
+              "id": 73,
+              "trip_stop": 24,
+              "title": "Belgian Chocolate Workshop",
+              "category": "Food",
+              "start_time": null,
+              "end_time": null,
+              "cost_amount": 90000,
+              "currency": "INR",
+              "notes": ""
+            },
+            {
+              "id": 74,
+              "trip_stop": 24,
+              "title": "EU Parliament Tour",
+              "category": "Educational",
+              "start_time": null,
+              "end_time": null,
+              "cost_amount": 0,
+              "currency": "INR",
+              "notes": ""
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "method": "POST",
+    "url": "https://mako-golden-tetra.ngrok-free.app/api/public/itineraries/14-api-test-trip-1754942559-9/copy",
+    "auth": true,
+    "status": 200,
+    "response_json": {
+      "trip_id": 10
+    }
+  }
+]

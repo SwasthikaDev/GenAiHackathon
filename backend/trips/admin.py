@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import City, Trip, TripStop, Activity, ActivityCatalog, ExternalPlace
+from .models import City, Trip, TripStop, Activity, ActivityCatalog, ExternalPlace, PersonalizedRec
 
 
 @admin.register(City)
@@ -33,5 +33,11 @@ class ActivityCatalogAdmin(admin.ModelAdmin):
 class ExternalPlaceAdmin(admin.ModelAdmin):
     list_display = ("name", "country", "source", "external_id", "created_at")
     search_fields = ("name", "country", "external_id")
+
+
+@admin.register(PersonalizedRec)
+class PersonalizedRecAdmin(admin.ModelAdmin):
+    list_display = ("user", "signature", "created_at")
+    search_fields = ("user__username", "signature")
 
 # Register your models here.

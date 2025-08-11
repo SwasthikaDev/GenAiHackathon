@@ -1,0 +1,81 @@
+{
+  "id": 0,
+  "name": "London \u2192 Paris",
+  "start_date": "2025-09-05",
+  "end_date": "2025-09-07",
+  "origin_city": {
+    "id": 0,
+    "name": "London",
+    "country": "",
+    "region": ""
+  },
+  "description": "Auto\u2011generated sample itinerary",
+  "cover_image": "",
+  "is_public": true,
+  "public_slug": "sample",
+  "best_time_to_visit": "Shoulder seasons for fewer crowds and mild weather",
+  "tips": [
+    "Adjust days per city based on interests",
+    "Book intercity transport in advance",
+    "Keep buffer time for popular attractions"
+  ],
+  "budget_breakdown_minor": {
+    "activities": 4500,
+    "food": 3500,
+    "transport": 5000,
+    "stay": 0,
+    "other": 0
+  },
+  "stops": [
+    {
+      "id": 1,
+      "trip": 0,
+      "city": {
+        "id": 1,
+        "name": "Paris",
+        "country": "France",
+        "region": "",
+        "cost_index": null,
+        "popularity": null
+      },
+      "start_date": "2025-09-05",
+      "end_date": "2025-09-07",
+      "order": 1,
+      "activities": [
+        {
+          "id": 11,
+          "trip_stop": 1,
+          "title": "Walking Tour",
+          "category": "sightseeing",
+          "start_time": null,
+          "end_time": null,
+          "cost_amount": 2000,
+          "currency": "USD",
+          "notes": ""
+        },
+        {
+          "id": 12,
+          "trip_stop": 1,
+          "title": "Museum Pass",
+          "category": "culture",
+          "start_time": null,
+          "end_time": null,
+          "cost_amount": 2500,
+          "currency": "USD",
+          "notes": ""
+        },
+        {
+          "id": 13,
+          "trip_stop": 1,
+          "title": "Food Crawl",
+          "category": "food",
+          "start_time": null,
+          "end_time": null,
+          "cost_amount": 3500,
+          "currency": "USD",
+          "notes": ""
+        }
+      ]
+    }
+  ]
+}

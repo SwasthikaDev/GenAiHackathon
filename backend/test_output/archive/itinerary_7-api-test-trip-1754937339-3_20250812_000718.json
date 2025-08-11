@@ -1,0 +1,170 @@
+{
+  "id": 3,
+  "name": "API Test Trip 1754937339",
+  "start_date": "2025-09-10",
+  "end_date": "2025-09-14",
+  "origin_city": {
+    "id": 1,
+    "name": "Paris",
+    "country": "France",
+    "region": "",
+    "cost_index": 3,
+    "popularity": 4
+  },
+  "description": "",
+  "cover_image": "",
+  "is_public": true,
+  "public_slug": "7-api-test-trip-1754937339-3",
+  "stops": [
+    {
+      "id": 7,
+      "trip": 3,
+      "city": {
+        "id": 1,
+        "name": "Paris",
+        "country": "France",
+        "region": "",
+        "cost_index": 3,
+        "popularity": 4
+      },
+      "start_date": "2025-09-10",
+      "end_date": "2025-09-12",
+      "order": 1,
+      "activities": [
+        {
+          "id": 25,
+          "trip_stop": 7,
+          "title": "Walking Tour",
+          "category": "sightseeing",
+          "start_time": null,
+          "end_time": null,
+          "cost_amount": 2500,
+          "currency": "INR",
+          "notes": ""
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "trip": 3,
+      "city": {
+        "id": 1,
+        "name": "Paris",
+        "country": "France",
+        "region": "",
+        "cost_index": 3,
+        "popularity": 4
+      },
+      "start_date": "2025-09-10",
+      "end_date": "2025-09-12",
+      "order": 2,
+      "activities": [
+        {
+          "id": 17,
+          "trip_stop": 5,
+          "title": "Eiffel Tower Visit",
+          "category": "Landmark",
+          "start_time": null,
+          "end_time": null,
+          "cost_amount": 2500,
+          "currency": "INR",
+          "notes": ""
+        },
+        {
+          "id": 18,
+          "trip_stop": 5,
+          "title": "Louvre Museum Tour",
+          "category": "Museum",
+          "start_time": null,
+          "end_time": null,
+          "cost_amount": 1700,
+          "currency": "INR",
+          "notes": ""
+        },
+        {
+          "id": 19,
+          "trip_stop": 5,
+          "title": "Seine River Cruise",
+          "category": "Sightseeing",
+          "start_time": null,
+          "end_time": null,
+          "cost_amount": 800,
+          "currency": "INR",
+          "notes": ""
+        },
+        {
+          "id": 20,
+          "trip_stop": 5,
+          "title": "Montmartre Exploration",
+          "category": "Cultural",
+          "start_time": null,
+          "end_time": null,
+          "cost_amount": 0,
+          "currency": "INR",
+          "notes": ""
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "trip": 3,
+      "city": {
+        "id": 8,
+        "name": "Brussels",
+        "country": "",
+        "region": "",
+        "cost_index": null,
+        "popularity": null
+      },
+      "start_date": "2025-09-12",
+      "end_date": "2025-09-14",
+      "order": 3,
+      "activities": [
+        {
+          "id": 21,
+          "trip_stop": 6,
+          "title": "Grand Place Walking Tour",
+          "category": "Historical",
+          "start_time": null,
+          "end_time": null,
+          "cost_amount": 0,
+          "currency": "INR",
+          "notes": ""
+        },
+        {
+          "id": 22,
+          "trip_stop": 6,
+          "title": "Atomium Visit",
+          "category": "Landmark",
+          "start_time": null,
+          "end_time": null,
+          "cost_amount": 1200,
+          "currency": "INR",
+          "notes": ""
+        },
+        {
+          "id": 23,
+          "trip_stop": 6,
+          "title": "Belgian Chocolate Workshop",
+          "category": "Culinary",
+          "start_time": null,
+          "end_time": null,
+          "cost_amount": 900,
+          "currency": "INR",
+          "notes": ""
+        },
+        {
+          "id": 24,
+          "trip_stop": 6,
+          "title": "EU Parliament Tour",
+          "category": "Educational",
+          "start_time": null,
+          "end_time": null,
+          "cost_amount": 0,
+          "currency": "INR",
+          "notes": ""
+        }
+      ]
+    }
+  ]
+}
