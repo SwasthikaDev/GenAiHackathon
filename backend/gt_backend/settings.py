@@ -40,9 +40,12 @@ ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "").split(",") if os.getenv("D
 for _h in ["localhost", "127.0.0.1"]:
     if _h not in ALLOWED_HOSTS:
         ALLOWED_HOSTS.append(_h)
-# Add requested ngrok host
-if "5c4bc72ae859.ngrok-free.app" not in ALLOWED_HOSTS:
-    ALLOWED_HOSTS.append("5c4bc72ae859.ngrok-free.app")
+# Add known ngrok hosts (backend URL)
+for _ng in [
+    "mako-golden-tetra.ngrok-free.app"
+]:
+    if _ng not in ALLOWED_HOSTS:
+        ALLOWED_HOSTS.append(_ng)
 
 
 # Application definition
@@ -177,8 +180,14 @@ SPECTACULAR_SETTINGS = {
 CORS_ALLOW_CREDENTIALS = True
 _cors_origins = os.getenv("DJANGO_CORS_ALLOWED_ORIGINS", "").split(",") if os.getenv("DJANGO_CORS_ALLOWED_ORIGINS") else []
 CORS_ALLOWED_ORIGINS = [o.strip() for o in _cors_origins if o.strip()]
-if "https://5c4bc72ae859.ngrok-free.app" not in CORS_ALLOWED_ORIGINS:
-    CORS_ALLOWED_ORIGINS.append("https://5c4bc72ae859.ngrok-free.app")
+# Allow any ngrok-free.app frontend origin during development
+CORS_ALLOWED_ORIGIN_REGEXES = [r"^https://.*\\.ngrok-free\\.app$"]
+
+# CSRF trusted (mainly if cookies are used); safe for dev with ngrok
+CSRF_TRUSTED_ORIGINS = list({
+    *[o for o in CORS_ALLOWED_ORIGINS if o.startswith("http")],
+    "https://*.ngrok-free.app",
+})
 
 # Simple JWT lifetimes (longer sessions)
 SIMPLE_JWT = {
