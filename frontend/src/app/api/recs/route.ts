@@ -48,7 +48,7 @@ export async function POST(req: NextRequest) {
       } catch {
         // fall through to fallback
       }
-    } catch (e) {
+    } catch {
       // ignore and fallback
     }
   }

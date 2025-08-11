@@ -3,12 +3,22 @@ export const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "https://mako-golden
 export type LoginResponse = { access: string; refresh: string };
 
 export async function apiFetch<T>(path: string, init: RequestInit = {}): Promise<T> {
+  const hasBody = typeof init.body !== "undefined" && init.body !== null;
+  const method = (init.method || "GET").toUpperCase();
+
+  // Start from caller-provided headers if any
+  const mergedHeaders: Record<string, string> = { ...(init.headers as Record<string, string> | undefined) };
+
+  // Only set Content-Type when there is a body, and do not override FormData
+  const isForm = typeof FormData !== "undefined" && hasBody && init.body instanceof FormData;
+  const hasContentType = Object.keys(mergedHeaders || {}).some((k) => k.toLowerCase() === "content-type");
+  if (hasBody && !isForm && !hasContentType && method !== "GET" && method !== "HEAD") {
+    mergedHeaders["Content-Type"] = "application/json";
+  }
+
   const res = await fetch(`${API_BASE}${path}`, {
     ...init,
-    headers: {
-      "Content-Type": "application/json",
-      ...(init.headers || {}),
-    },
+    headers: Object.keys(mergedHeaders).length ? mergedHeaders : undefined,
   });
   if (!res.ok) {
     let msg = `HTTP ${res.status}`;
@@ -44,12 +54,14 @@ export function setToken(token: string | null) {
 
 export async function authFetch<T>(path: string, init: RequestInit = {}): Promise<T> {
   const token = getToken();
+  // Start from caller-provided headers if any
+  const mergedHeaders: Record<string, string> = { ...(init.headers as Record<string, string> | undefined) };
+  if (token && token.trim().length > 0) {
+    mergedHeaders.Authorization = `Bearer ${token}`;
+  }
   return apiFetch<T>(path, {
     ...init,
-    headers: {
-      ...(init.headers || {}),
-      Authorization: token ? `Bearer ${token}` : "",
-    },
+    headers: Object.keys(mergedHeaders).length ? mergedHeaders : undefined,
   });
 }
 

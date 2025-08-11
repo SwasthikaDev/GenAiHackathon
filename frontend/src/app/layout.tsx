@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import HeaderActions from "@/components/HeaderActions";
+import Link from "next/link";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,15 +31,17 @@ export default function RootLayout({
     <html lang="en" data-theme="light">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <div className="min-h-screen">
-          <header>
+          <header className="header">
             <div className="container">
               <nav className="flex items-center justify-between py-4">
-                <a href="/" className="text-xl font-semibold">GlobalTrotters</a>
+                <div className="flex items-center gap-6">
+                  <Link href="/" className="text-xl font-extrabold text-[var(--brand-blue)]">GT</Link>
+                </div>
                 <HeaderActions />
               </nav>
             </div>
           </header>
-          <main className="container">
+          <main className="container py-6">
             {children}
           </main>
         </div>

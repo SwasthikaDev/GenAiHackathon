@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
-import { authFetch, API_BASE, getToken } from "@/lib/api";
+import { authFetch, apiFetch, API_BASE, getToken } from "@/lib/api";
 import { useRouter } from "next/navigation";
 import AuthGuard from "@/components/AuthGuard";
 import { buildRouteSummary } from "@/lib/format";
@@ -25,6 +25,9 @@ export default function TripsPage() {
   const [originQuery, setOriginQuery] = useState("");
   const [originResults, setOriginResults] = useState<Array<{id?: number|null; name:string; country:string; lat?: string; lon?: string}>>([]);
   const [originId, setOriginId] = useState<number | null>(null);
+  const [destinationQuery, setDestinationQuery] = useState("");
+  const [destinationResults, setDestinationResults] = useState<Array<{id?: number|null; name:string; country:string; lat?: string; lon?: string}>>([]);
+  const [destinationId, setDestinationId] = useState<number | null>(null);
   const [sharing, setSharing] = useState<number | null>(null);
   const [editingId, setEditingId] = useState<number | null>(null);
   const [editName, setEditName] = useState("");
@@ -45,19 +48,20 @@ export default function TripsPage() {
   function searchOrigin(q: string) {
     setOriginQuery(q);
   }
+  function searchDestination(q: string) {
+    setDestinationQuery(q);
+  }
 
   const originFetchAbort = useRef<AbortController | null>(null);
   useEffect(() => {
     const t = originQuery.trim();
-    if (t.length < 2) { setOriginResults([]); return; }
+    if (t.length < 1) { setOriginResults([]); return; }
     const timer = setTimeout(async () => {
       try {
-        // cancel any in-flight request
         if (originFetchAbort.current) originFetchAbort.current.abort();
         const controller = new AbortController();
         originFetchAbort.current = controller;
-        const res = await fetch(`${API_BASE}/search/cities?q=${encodeURIComponent(t)}` , { signal: controller.signal });
-        const data = await res.json();
+        const data = await apiFetch<any[]>(`/search/cities?q=${encodeURIComponent(t)}`, { signal: controller.signal });
         setOriginResults(Array.isArray(data) ? data : []);
       } catch {
         // ignore
@@ -66,23 +70,49 @@ export default function TripsPage() {
     return () => clearTimeout(timer);
   }, [originQuery]);
 
+  const destinationFetchAbort = useRef<AbortController | null>(null);
+  useEffect(() => {
+    const t = destinationQuery.trim();
+    if (t.length < 1) { setDestinationResults([]); return; }
+    const timer = setTimeout(async () => {
+      try {
+        if (destinationFetchAbort.current) destinationFetchAbort.current.abort();
+        const controller = new AbortController();
+        destinationFetchAbort.current = controller;
+        const data = await apiFetch<any[]>(`/search/cities?q=${encodeURIComponent(t)}`, { signal: controller.signal });
+        setDestinationResults(Array.isArray(data) ? data : []);
+      } catch {
+        // ignore
+      }
+    }, 350);
+    return () => clearTimeout(timer);
+  }, [destinationQuery]);
+
   async function createTrip(e: React.FormEvent) {
     e.preventDefault();
     setError(null);
     try {
-      const payload: any = { name, start_date: start, end_date: end };
-      if (originId) payload.origin_city_id = originId;
-      const trip = await authFetch<Trip>("/trips/", {
-        method: "POST",
-        body: JSON.stringify(payload),
-      });
-      setTrips([trip, ...trips]);
-      setName("");
-      setStart("");
-      setEnd("");
-      setOriginId(null);
-      setOriginQuery("");
-      setOriginResults([]);
+      if (!name.trim() || !start || !end) {
+        setError("Please complete trip name and dates.");
+        return;
+      }
+      if (!originId) {
+        setError("Please select a starting city from the list.");
+        return;
+      }
+      if (!destinationId) {
+        setError("Please select a destination city from the list.");
+        return;
+      }
+      // Frontend-only: jump to build-itinerary carrying trip details via query params
+      const url = new URL(window.location.origin + "/build-itinerary");
+      url.searchParams.set("name", name);
+      url.searchParams.set("start", start);
+      url.searchParams.set("end", end);
+      url.searchParams.set("from", originQuery);
+      url.searchParams.set("to", destinationQuery);
+      window.location.href = url.toString();
+      return;
     } catch (err: any) {
       setError(err.message);
     }
@@ -137,8 +167,11 @@ export default function TripsPage() {
 
   async function saveEdit(id: number) {
     try {
-      const payload: any = { name: editName, start_date: editStart, end_date: editEnd };
-      if (editOriginId) payload.origin_city_id = editOriginId;
+      if (!editName.trim() || !editStart || !editEnd || !editOriginId) {
+        setError("Please complete all fields and select an origin city.");
+        return;
+      }
+      const payload: any = { name: editName, start_date: editStart, end_date: editEnd, origin_city_id: editOriginId };
       const updated = await authFetch<Trip>(`/trips/${id}/`, { method: 'PATCH', body: JSON.stringify(payload) });
       setTrips(trips.map(t => t.id === id ? updated : t));
       cancelEdit();
@@ -169,6 +202,10 @@ export default function TripsPage() {
   return (
     <AuthGuard>
     <div className="grid gap-6">
+      <div className="section flex items-center justify-between">
+        <h2 className="text-lg font-semibold">Your trips</h2>
+        <a className="btn btn-primary" href="/build-itinerary">Create Trip</a>
+      </div>
       <div className="section">
         <h2 className="text-lg font-semibold mb-2">Create a new trip</h2>
         <form onSubmit={createTrip} className="grid gap-3 sm:grid-cols-6">
@@ -176,9 +213,9 @@ export default function TripsPage() {
           <input className="input" type="date" value={start} onChange={(e) => setStart(e.target.value)} required />
           <input className="input" type="date" value={end} onChange={(e) => setEnd(e.target.value)} required />
           <div className="sm:col-span-2 relative">
-            <input className="input w-full" placeholder="Starting from (search city)" value={originQuery} onChange={(e) => searchOrigin(e.target.value)} />
-            {originQuery.trim().length > 0 && originQuery.trim().length < 2 && (
-              <div className="label mt-1">Type at least 2 characters…</div>
+            <input className="input w-full" placeholder="Starting from (search city)" value={originQuery} onChange={(e) => searchOrigin(e.target.value)} required />
+            {originQuery.trim().length === 0 && (
+              <div className="label mt-1">Type a city name…</div>
             )}
             {originResults.length > 0 && (
               <div className="absolute z-50 mt-1 left-0 right-0 rounded border border-white/10 bg-black/20 backdrop-blur-sm max-h-60 overflow-auto shadow-lg">
@@ -196,6 +233,35 @@ export default function TripsPage() {
                     } catch {
                       setOriginId(null);
                       setOriginResults([]);
+                    }
+                  }}>
+                    {c.name}, {c.country}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+          <div className="sm:col-span-2 relative">
+            <input className="input w-full" placeholder="Destination (search city)" value={destinationQuery} onChange={(e) => searchDestination(e.target.value)} required />
+            {destinationQuery.trim().length === 0 && (
+              <div className="label mt-1">Type a city name…</div>
+            )}
+            {destinationResults.length > 0 && (
+              <div className="absolute z-50 mt-1 left-0 right-0 rounded border border-white/10 bg-black/20 backdrop-blur-sm max-h-60 overflow-auto shadow-lg">
+                {destinationResults.map((c, idx) => (
+                  <button key={`${c.id ?? 'new'}-d-${idx}`} type="button" className="w-full text-left px-3 py-1 hover:bg-white/10" onClick={async () => {
+                    try {
+                      let cityId = c.id ?? null;
+                      if (!cityId) {
+                        const ensured = await authFetch<{id:number}>(`/cities/ensure/`, { method: 'POST', body: JSON.stringify({ name: c.name, country: c.country }) });
+                        cityId = ensured?.id ?? null;
+                      }
+                      setDestinationId(cityId);
+                      setDestinationQuery(`${c.name}, ${c.country}`);
+                      setDestinationResults([]);
+                    } catch {
+                      setDestinationId(null);
+                      setDestinationResults([]);
                     }
                   }}>
                     {c.name}, {c.country}
@@ -224,11 +290,11 @@ export default function TripsPage() {
                 </>
               ) : (
                 <div className="grid gap-2 sm:grid-cols-5 mt-1">
-                  <input className="input sm:col-span-2" value={editName} onChange={(e)=>setEditName(e.target.value)} />
-                  <input className="input" type="date" value={editStart} onChange={(e)=>setEditStart(e.target.value)} />
-                  <input className="input" type="date" value={editEnd} onChange={(e)=>setEditEnd(e.target.value)} />
+                  <input className="input sm:col-span-2" value={editName} onChange={(e)=>setEditName(e.target.value)} required />
+                  <input className="input" type="date" value={editStart} onChange={(e)=>setEditStart(e.target.value)} required />
+                  <input className="input" type="date" value={editEnd} onChange={(e)=>setEditEnd(e.target.value)} required />
                   <div className="relative">
-                    <input className="input" placeholder="Origin (search)" value={editOriginQuery} onChange={(e)=>setEditOriginQuery(e.target.value)} />
+                    <input className="input" placeholder="Origin (search)" value={editOriginQuery} onChange={(e)=>setEditOriginQuery(e.target.value)} required />
                     {editOriginQuery.trim().length > 0 && editOriginQuery.trim().length < 2 && (
                       <div className="label mt-1">Type at least 2 characters…</div>
                     )}
