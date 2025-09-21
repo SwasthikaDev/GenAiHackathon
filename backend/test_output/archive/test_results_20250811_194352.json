@@ -1,0 +1,392 @@
+{
+  "base": "https://mako-golden-tetra.ngrok-free.app/api",
+  "username": "apitest_1754921594",
+  "check_username": {
+    "status": 200,
+    "body": {
+      "username": "apitest_1754921594",
+      "available": true
+    }
+  },
+  "checks": {
+    "check_username_ok": {
+      "pass": true,
+      "details": {
+        "status": 200,
+        "body": {
+          "username": "apitest_1754921594",
+          "available": true
+        }
+      }
+    },
+    "signup_status_ok": {
+      "pass": true,
+      "details": {
+        "status": 201,
+        "body": {
+          "username": "apitest_1754921594",
+          "email": "apitest_1754921594@example.com",
+          "display_name": "",
+          "avatar_url": "",
+          "phone_number": "",
+          "city": "",
+          "country": "",
+          "bio": ""
+        }
+      }
+    },
+    "login_ok": {
+      "pass": true,
+      "details": {
+        "status": 200,
+        "body": {
+          "refresh": "<redacted>",
+          "access": "<redacted>"
+        }
+      }
+    },
+    "recs_ok": {
+      "pass": true,
+      "details": {
+        "status": 200,
+        "body": {
+          "bannerTitle": "Global Adventures Await You",
+          "blurb": "Explore world-class destinations handpicked for curious travelers seeking new horizons.",
+          "topSelections": [
+            {
+              "name": "Kyoto",
+              "country": "Japan",
+              "reason": "Historic temples and serene gardens"
+            },
+            {
+              "name": "Santorini",
+              "country": "Greece",
+              "reason": "Stunning sunsets and whitewashed villages"
+            },
+            {
+              "name": "Banff",
+              "country": "Canada",
+              "reason": "Majestic mountains and turquoise lakes"
+            },
+            {
+              "name": "Marrakech",
+              "country": "Morocco",
+              "reason": "Vibrant souks and desert adventures"
+            },
+            {
+              "name": "Queenstown",
+              "country": "New Zealand",
+              "reason": "Adventure sports and alpine scenery"
+            },
+            {
+              "name": "Reykjavik",
+              "country": "Iceland",
+              "reason": "Northern lights and geothermal wonders"
+            }
+          ],
+          "groupings": [
+            "Culture",
+            "Nature",
+            "Beaches",
+            "Adventure",
+            "Romance"
+          ],
+          "sortOptions": [
+            "Popularity",
+            "Budget",
+            "Season",
+            "Travel Time"
+          ],
+          "source": "openrouter"
+        }
+      }
+    },
+    "search_cities_ok": {
+      "pass": true,
+      "details": {
+        "status": 200,
+        "count": 4
+      }
+    },
+    "ensure_city_ok": {
+      "pass": true,
+      "details": {
+        "status": 200,
+        "body": {
+          "id": 3,
+          "name": "Paris",
+          "country": "France",
+          "region": "",
+          "cost_index": null,
+          "popularity": null
+        }
+      }
+    },
+    "create_trip_ok": {
+      "pass": true,
+      "details": {
+        "status": 201,
+        "body": {
+          "id": 4,
+          "name": "API Test Trip 1754921594",
+          "start_date": "2025-09-10",
+          "end_date": "2025-09-14",
+          "origin_city": {
+            "id": 3,
+            "name": "Paris",
+            "country": "France",
+            "region": "",
+            "cost_index": null,
+            "popularity": null
+          },
+          "description": "",
+          "cover_image": "",
+          "is_public": false,
+          "public_slug": null,
+          "stops": []
+        }
+      }
+    },
+    "add_stop_ok": {
+      "pass": true,
+      "details": {
+        "status": 201,
+        "body": {
+          "id": 4,
+          "trip": 4,
+          "city": {
+            "id": 3,
+            "name": "Paris",
+            "country": "France",
+            "region": "",
+            "cost_index": null,
+            "popularity": null
+          },
+          "start_date": "2025-09-10",
+          "end_date": "2025-09-12",
+          "order": 1,
+          "activities": []
+        }
+      }
+    },
+    "add_activity_ok": {
+      "pass": true,
+      "details": {
+        "status": 201,
+        "body": {
+          "id": 3,
+          "trip_stop": 4,
+          "title": "Walking Tour",
+          "category": "sightseeing",
+          "start_time": null,
+          "end_time": null,
+          "cost_amount": 2500,
+          "currency": "INR",
+          "notes": ""
+        }
+      }
+    },
+    "budget_ok": {
+      "pass": true,
+      "details": {
+        "status": 200,
+        "body": {
+          "trip_id": 4,
+          "currency": "USD",
+          "total_cost_minor": 2500
+        }
+      }
+    },
+    "share_ok": {
+      "pass": true,
+      "details": {
+        "status": 200,
+        "body": {
+          "public_slug": "7-api-test-trip-1754921594-4"
+        }
+      }
+    },
+    "public_ok": {
+      "pass": true,
+      "details": {
+        "status": 200,
+        "body_sample_keys": [
+          "id",
+          "name",
+          "start_date",
+          "end_date",
+          "origin_city",
+          "description"
+        ]
+      }
+    }
+  },
+  "signup": {
+    "status": 201,
+    "body": {
+      "username": "apitest_1754921594",
+      "email": "apitest_1754921594@example.com",
+      "display_name": "",
+      "avatar_url": "",
+      "phone_number": "",
+      "city": "",
+      "country": "",
+      "bio": ""
+    }
+  },
+  "login": {
+    "status": 200,
+    "body": {
+      "refresh": "<redacted>",
+      "access": "<redacted>"
+    }
+  },
+  "recs": {
+    "status": 200,
+    "body": {
+      "bannerTitle": "Global Adventures Await You",
+      "blurb": "Explore world-class destinations handpicked for curious travelers seeking new horizons.",
+      "topSelections": [
+        {
+          "name": "Kyoto",
+          "country": "Japan",
+          "reason": "Historic temples and serene gardens"
+        },
+        {
+          "name": "Santorini",
+          "country": "Greece",
+          "reason": "Stunning sunsets and whitewashed villages"
+        },
+        {
+          "name": "Banff",
+          "country": "Canada",
+          "reason": "Majestic mountains and turquoise lakes"
+        },
+        {
+          "name": "Marrakech",
+          "country": "Morocco",
+          "reason": "Vibrant souks and desert adventures"
+        },
+        {
+          "name": "Queenstown",
+          "country": "New Zealand",
+          "reason": "Adventure sports and alpine scenery"
+        },
+        {
+          "name": "Reykjavik",
+          "country": "Iceland",
+          "reason": "Northern lights and geothermal wonders"
+        }
+      ],
+      "groupings": [
+        "Culture",
+        "Nature",
+        "Beaches",
+        "Adventure",
+        "Romance"
+      ],
+      "sortOptions": [
+        "Popularity",
+        "Budget",
+        "Season",
+        "Travel Time"
+      ],
+      "source": "openrouter"
+    }
+  },
+  "search_cities": {
+    "status": 200,
+    "count": 4
+  },
+  "ensure_city": {
+    "status": 200,
+    "body": {
+      "id": 3,
+      "name": "Paris",
+      "country": "France",
+      "region": "",
+      "cost_index": null,
+      "popularity": null
+    }
+  },
+  "create_trip": {
+    "status": 201,
+    "body": {
+      "id": 4,
+      "name": "API Test Trip 1754921594",
+      "start_date": "2025-09-10",
+      "end_date": "2025-09-14",
+      "origin_city": {
+        "id": 3,
+        "name": "Paris",
+        "country": "France",
+        "region": "",
+        "cost_index": null,
+        "popularity": null
+      },
+      "description": "",
+      "cover_image": "",
+      "is_public": false,
+      "public_slug": null,
+      "stops": []
+    }
+  },
+  "add_stop": {
+    "status": 201,
+    "body": {
+      "id": 4,
+      "trip": 4,
+      "city": {
+        "id": 3,
+        "name": "Paris",
+        "country": "France",
+        "region": "",
+        "cost_index": null,
+        "popularity": null
+      },
+      "start_date": "2025-09-10",
+      "end_date": "2025-09-12",
+      "order": 1,
+      "activities": []
+    }
+  },
+  "add_activity": {
+    "status": 201,
+    "body": {
+      "id": 3,
+      "trip_stop": 4,
+      "title": "Walking Tour",
+      "category": "sightseeing",
+      "start_time": null,
+      "end_time": null,
+      "cost_amount": 2500,
+      "currency": "INR",
+      "notes": ""
+    }
+  },
+  "budget": {
+    "status": 200,
+    "body": {
+      "trip_id": 4,
+      "currency": "USD",
+      "total_cost_minor": 2500
+    }
+  },
+  "share": {
+    "status": 200,
+    "body": {
+      "public_slug": "7-api-test-trip-1754921594-4"
+    }
+  },
+  "public": {
+    "status": 200,
+    "body_sample_keys": [
+      "id",
+      "name",
+      "start_date",
+      "end_date",
+      "origin_city",
+      "description"
+    ]
+  }
+}

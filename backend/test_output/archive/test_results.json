@@ -1,0 +1,386 @@
+{
+  "base": "https://mako-golden-tetra.ngrok-free.app/api",
+  "username": "apitest_1754921357",
+  "check_username": {
+    "status": 200,
+    "body": {
+      "username": "apitest_1754921357",
+      "available": true
+    }
+  },
+  "checks": {
+    "check_username_ok": {
+      "pass": true,
+      "details": {
+        "status": 200,
+        "body": {
+          "username": "apitest_1754921357",
+          "available": true
+        }
+      }
+    },
+    "signup_status_ok": {
+      "pass": true,
+      "details": {
+        "status": 201,
+        "body": {
+          "username": "apitest_1754921357",
+          "email": "apitest_1754921357@example.com",
+          "display_name": "",
+          "avatar_url": "",
+          "phone_number": "",
+          "city": "",
+          "country": "",
+          "bio": ""
+        }
+      }
+    },
+    "login_ok": {
+      "pass": true,
+      "details": {
+        "status": 200,
+        "body": {
+          "refresh": "<redacted>",
+          "access": "<redacted>"
+        }
+      }
+    },
+    "recs_ok": {
+      "pass": true,
+      "details": {
+        "status": 200,
+        "body": {
+          "bannerTitle": "Discover Your Next Journey",
+          "blurb": "Explore world-famous destinations curated for unforgettable experiences.",
+          "topSelections": [
+            {
+              "name": "Kyoto",
+              "country": "Japan",
+              "reason": "Timeless temples & gardens"
+            },
+            {
+              "name": "Santorini",
+              "country": "Greece",
+              "reason": "Iconic sunsets & vistas"
+            },
+            {
+              "name": "Banff",
+              "country": "Canada",
+              "reason": "Majestic mountain wilderness"
+            },
+            {
+              "name": "Bali",
+              "country": "Indonesia",
+              "reason": "Spiritual beaches & culture"
+            },
+            {
+              "name": "Paris",
+              "country": "France",
+              "reason": "Artistic elegance & cuisine"
+            },
+            {
+              "name": "Safari Serengeti",
+              "country": "Tanzania",
+              "reason": "Epic wildlife adventures"
+            }
+          ],
+          "groupings": [
+            "Cultural Havens",
+            "Nature Escapes",
+            "Coast & Islands"
+          ],
+          "sortOptions": [
+            "Trending",
+            "Budget",
+            "Flight Time"
+          ],
+          "source": "openrouter"
+        }
+      }
+    },
+    "search_cities_ok": {
+      "pass": true,
+      "details": {
+        "status": 200,
+        "count": 4
+      }
+    },
+    "ensure_city_ok": {
+      "pass": true,
+      "details": {
+        "status": 200,
+        "body": {
+          "id": 3,
+          "name": "Paris",
+          "country": "France",
+          "region": "",
+          "cost_index": null,
+          "popularity": null
+        }
+      }
+    },
+    "create_trip_ok": {
+      "pass": true,
+      "details": {
+        "status": 201,
+        "body": {
+          "id": 2,
+          "name": "API Test Trip 1754921357",
+          "start_date": "2025-09-10",
+          "end_date": "2025-09-14",
+          "origin_city": {
+            "id": 3,
+            "name": "Paris",
+            "country": "France",
+            "region": "",
+            "cost_index": null,
+            "popularity": null
+          },
+          "description": "",
+          "cover_image": "",
+          "is_public": false,
+          "public_slug": null,
+          "stops": []
+        }
+      }
+    },
+    "add_stop_ok": {
+      "pass": true,
+      "details": {
+        "status": 201,
+        "body": {
+          "id": 2,
+          "trip": 2,
+          "city": {
+            "id": 3,
+            "name": "Paris",
+            "country": "France",
+            "region": "",
+            "cost_index": null,
+            "popularity": null
+          },
+          "start_date": "2025-09-10",
+          "end_date": "2025-09-12",
+          "order": 1,
+          "activities": []
+        }
+      }
+    },
+    "add_activity_ok": {
+      "pass": true,
+      "details": {
+        "status": 201,
+        "body": {
+          "id": 1,
+          "trip_stop": 2,
+          "title": "Walking Tour",
+          "category": "sightseeing",
+          "start_time": null,
+          "end_time": null,
+          "cost_amount": 2500,
+          "currency": "INR",
+          "notes": ""
+        }
+      }
+    },
+    "budget_ok": {
+      "pass": true,
+      "details": {
+        "status": 200,
+        "body": {
+          "trip_id": 2,
+          "currency": "USD",
+          "total_cost_minor": 2500
+        }
+      }
+    },
+    "share_ok": {
+      "pass": true,
+      "details": {
+        "status": 200,
+        "body": {
+          "public_slug": "5-api-test-trip-1754921357-2"
+        }
+      }
+    },
+    "public_ok": {
+      "pass": true,
+      "details": {
+        "status": 200,
+        "body_sample_keys": [
+          "id",
+          "name",
+          "start_date",
+          "end_date",
+          "origin_city",
+          "description"
+        ]
+      }
+    }
+  },
+  "signup": {
+    "status": 201,
+    "body": {
+      "username": "apitest_1754921357",
+      "email": "apitest_1754921357@example.com",
+      "display_name": "",
+      "avatar_url": "",
+      "phone_number": "",
+      "city": "",
+      "country": "",
+      "bio": ""
+    }
+  },
+  "login": {
+    "status": 200,
+    "body": {
+      "refresh": "<redacted>",
+      "access": "<redacted>"
+    }
+  },
+  "recs": {
+    "status": 200,
+    "body": {
+      "bannerTitle": "Discover Your Next Journey",
+      "blurb": "Explore world-famous destinations curated for unforgettable experiences.",
+      "topSelections": [
+        {
+          "name": "Kyoto",
+          "country": "Japan",
+          "reason": "Timeless temples & gardens"
+        },
+        {
+          "name": "Santorini",
+          "country": "Greece",
+          "reason": "Iconic sunsets & vistas"
+        },
+        {
+          "name": "Banff",
+          "country": "Canada",
+          "reason": "Majestic mountain wilderness"
+        },
+        {
+          "name": "Bali",
+          "country": "Indonesia",
+          "reason": "Spiritual beaches & culture"
+        },
+        {
+          "name": "Paris",
+          "country": "France",
+          "reason": "Artistic elegance & cuisine"
+        },
+        {
+          "name": "Safari Serengeti",
+          "country": "Tanzania",
+          "reason": "Epic wildlife adventures"
+        }
+      ],
+      "groupings": [
+        "Cultural Havens",
+        "Nature Escapes",
+        "Coast & Islands"
+      ],
+      "sortOptions": [
+        "Trending",
+        "Budget",
+        "Flight Time"
+      ],
+      "source": "openrouter"
+    }
+  },
+  "search_cities": {
+    "status": 200,
+    "count": 4
+  },
+  "ensure_city": {
+    "status": 200,
+    "body": {
+      "id": 3,
+      "name": "Paris",
+      "country": "France",
+      "region": "",
+      "cost_index": null,
+      "popularity": null
+    }
+  },
+  "create_trip": {
+    "status": 201,
+    "body": {
+      "id": 2,
+      "name": "API Test Trip 1754921357",
+      "start_date": "2025-09-10",
+      "end_date": "2025-09-14",
+      "origin_city": {
+        "id": 3,
+        "name": "Paris",
+        "country": "France",
+        "region": "",
+        "cost_index": null,
+        "popularity": null
+      },
+      "description": "",
+      "cover_image": "",
+      "is_public": false,
+      "public_slug": null,
+      "stops": []
+    }
+  },
+  "add_stop": {
+    "status": 201,
+    "body": {
+      "id": 2,
+      "trip": 2,
+      "city": {
+        "id": 3,
+        "name": "Paris",
+        "country": "France",
+        "region": "",
+        "cost_index": null,
+        "popularity": null
+      },
+      "start_date": "2025-09-10",
+      "end_date": "2025-09-12",
+      "order": 1,
+      "activities": []
+    }
+  },
+  "add_activity": {
+    "status": 201,
+    "body": {
+      "id": 1,
+      "trip_stop": 2,
+      "title": "Walking Tour",
+      "category": "sightseeing",
+      "start_time": null,
+      "end_time": null,
+      "cost_amount": 2500,
+      "currency": "INR",
+      "notes": ""
+    }
+  },
+  "budget": {
+    "status": 200,
+    "body": {
+      "trip_id": 2,
+      "currency": "USD",
+      "total_cost_minor": 2500
+    }
+  },
+  "share": {
+    "status": 200,
+    "body": {
+      "public_slug": "5-api-test-trip-1754921357-2"
+    }
+  },
+  "public": {
+    "status": 200,
+    "body_sample_keys": [
+      "id",
+      "name",
+      "start_date",
+      "end_date",
+      "origin_city",
+      "description"
+    ]
+  }
+}

@@ -1,0 +1,1 @@
+{'to': 'shrikrishna@calyirex.com', 'ok': True, 'via': 'resend', 'from': 'onboarding@resend.dev'}

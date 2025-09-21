@@ -1,0 +1,384 @@
+{
+  "base": "https://mako-golden-tetra.ngrok-free.app/api",
+  "username": "apitest_1754940632",
+  "check_username": {
+    "status": 200,
+    "body": {
+      "username": "apitest_1754940632",
+      "available": true
+    }
+  },
+  "checks": {
+    "check_username_ok": {
+      "pass": true,
+      "details": {
+        "status": 200,
+        "body": {
+          "username": "apitest_1754940632",
+          "available": true
+        }
+      }
+    },
+    "signup_status_ok": {
+      "pass": true,
+      "details": {
+        "status": 201,
+        "body": {
+          "username": "apitest_1754940632",
+          "email": "apitest_1754940632@example.com",
+          "display_name": "API Tester",
+          "avatar_url": "https://i.pravatar.cc/100?img=5",
+          "phone_number": "+1-555-0100",
+          "city": "Bengaluru",
+          "country": "India",
+          "bio": "Automated API test user"
+        }
+      }
+    },
+    "login_ok": {
+      "pass": true,
+      "details": {
+        "status": 200,
+        "body": {
+          "refresh": "<redacted>",
+          "access": "<redacted>"
+        }
+      }
+    },
+    "search_cities_ok": {
+      "pass": true,
+      "details": {
+        "status": 200,
+        "count": 4
+      }
+    },
+    "ensure_city_ok": {
+      "pass": true,
+      "details": {
+        "status": 200,
+        "body": {
+          "id": 1,
+          "name": "Paris",
+          "country": "France",
+          "region": "",
+          "cost_index": 3,
+          "popularity": 4
+        }
+      }
+    },
+    "create_trip_ok": {
+      "pass": true,
+      "details": {
+        "status": 201,
+        "body": {
+          "id": 5,
+          "name": "API Test Trip 1754940632",
+          "start_date": "2025-09-10",
+          "end_date": "2025-09-14",
+          "origin_city": {
+            "id": 1,
+            "name": "Paris",
+            "country": "France",
+            "region": "",
+            "cost_index": 3,
+            "popularity": 4
+          },
+          "description": "",
+          "cover_image": "",
+          "is_public": false,
+          "public_slug": null,
+          "stops": []
+        }
+      }
+    },
+    "generate_ok": {
+      "pass": true,
+      "details": {
+        "status": 200,
+        "body_keys": [
+          "status",
+          "stops"
+        ]
+      }
+    },
+    "add_stop_ok": {
+      "pass": true,
+      "details": {
+        "status": 201,
+        "body": {
+          "id": 13,
+          "trip": 5,
+          "city": {
+            "id": 1,
+            "name": "Paris",
+            "country": "France",
+            "region": "",
+            "cost_index": 3,
+            "popularity": 4
+          },
+          "start_date": "2025-09-10",
+          "end_date": "2025-09-12",
+          "order": 1,
+          "activities": []
+        }
+      }
+    },
+    "add_activity_ok": {
+      "pass": true,
+      "details": {
+        "status": 201,
+        "body": {
+          "id": 43,
+          "trip_stop": 13,
+          "title": "Walking Tour",
+          "category": "sightseeing",
+          "start_time": null,
+          "end_time": null,
+          "cost_amount": 2500,
+          "currency": "INR",
+          "notes": ""
+        }
+      }
+    },
+    "reorder_ok": {
+      "pass": true,
+      "details": {
+        "status": 200,
+        "body_keys": [
+          "status",
+          "stops"
+        ]
+      }
+    },
+    "budget_ok": {
+      "pass": true,
+      "details": {
+        "status": 200,
+        "body": {
+          "trip_id": 5,
+          "currency": "INR",
+          "total_cost_minor": 1032500
+        }
+      }
+    },
+    "budget_summary_ok": {
+      "pass": true,
+      "details": {
+        "status": 200,
+        "body_keys": [
+          "trip_id",
+          "currency",
+          "total_minor",
+          "avg_per_day_minor",
+          "num_activities",
+          "categories",
+          "per_city",
+          "days"
+        ]
+      }
+    },
+    "calendar_ok": {
+      "pass": true,
+      "details": {
+        "status": 200,
+        "keys": [
+          "trip_id",
+          "start_date",
+          "end_date",
+          "total_days",
+          "days"
+        ]
+      }
+    },
+    "share_ok": {
+      "pass": true,
+      "details": {
+        "status": 200,
+        "body": {
+          "public_slug": "9-api-test-trip-1754940632-5"
+        }
+      }
+    },
+    "public_ok": {
+      "pass": true,
+      "details": {
+        "status": 200,
+        "body_sample_keys": [
+          "id",
+          "name",
+          "start_date",
+          "end_date",
+          "origin_city",
+          "description"
+        ]
+      }
+    },
+    "copy_ok": {
+      "pass": true,
+      "details": {
+        "status": 200,
+        "body": {
+          "trip_id": 6
+        }
+      }
+    }
+  },
+  "signup": {
+    "status": 201,
+    "body": {
+      "username": "apitest_1754940632",
+      "email": "apitest_1754940632@example.com",
+      "display_name": "API Tester",
+      "avatar_url": "https://i.pravatar.cc/100?img=5",
+      "phone_number": "+1-555-0100",
+      "city": "Bengaluru",
+      "country": "India",
+      "bio": "Automated API test user"
+    }
+  },
+  "login": {
+    "status": 200,
+    "body": {
+      "refresh": "<redacted>",
+      "access": "<redacted>"
+    }
+  },
+  "search_cities": {
+    "status": 200,
+    "count": 4
+  },
+  "ensure_city": {
+    "status": 200,
+    "body": {
+      "id": 1,
+      "name": "Paris",
+      "country": "France",
+      "region": "",
+      "cost_index": 3,
+      "popularity": 4
+    }
+  },
+  "create_trip": {
+    "status": 201,
+    "body": {
+      "id": 5,
+      "name": "API Test Trip 1754940632",
+      "start_date": "2025-09-10",
+      "end_date": "2025-09-14",
+      "origin_city": {
+        "id": 1,
+        "name": "Paris",
+        "country": "France",
+        "region": "",
+        "cost_index": 3,
+        "popularity": 4
+      },
+      "description": "",
+      "cover_image": "",
+      "is_public": false,
+      "public_slug": null,
+      "stops": []
+    }
+  },
+  "generate": {
+    "status": 200,
+    "body_keys": [
+      "status",
+      "stops"
+    ]
+  },
+  "add_stop": {
+    "status": 201,
+    "body": {
+      "id": 13,
+      "trip": 5,
+      "city": {
+        "id": 1,
+        "name": "Paris",
+        "country": "France",
+        "region": "",
+        "cost_index": 3,
+        "popularity": 4
+      },
+      "start_date": "2025-09-10",
+      "end_date": "2025-09-12",
+      "order": 1,
+      "activities": []
+    }
+  },
+  "add_activity": {
+    "status": 201,
+    "body": {
+      "id": 43,
+      "trip_stop": 13,
+      "title": "Walking Tour",
+      "category": "sightseeing",
+      "start_time": null,
+      "end_time": null,
+      "cost_amount": 2500,
+      "currency": "INR",
+      "notes": ""
+    }
+  },
+  "reorder": {
+    "status": 200,
+    "body_keys": [
+      "status",
+      "stops"
+    ]
+  },
+  "budget": {
+    "status": 200,
+    "body": {
+      "trip_id": 5,
+      "currency": "INR",
+      "total_cost_minor": 1032500
+    }
+  },
+  "budget_summary": {
+    "status": 200,
+    "body_keys": [
+      "trip_id",
+      "currency",
+      "total_minor",
+      "avg_per_day_minor",
+      "num_activities",
+      "categories",
+      "per_city",
+      "days"
+    ]
+  },
+  "calendar": {
+    "status": 200,
+    "keys": [
+      "trip_id",
+      "start_date",
+      "end_date",
+      "total_days",
+      "days"
+    ]
+  },
+  "share": {
+    "status": 200,
+    "body": {
+      "public_slug": "9-api-test-trip-1754940632-5"
+    }
+  },
+  "public": {
+    "status": 200,
+    "body_sample_keys": [
+      "id",
+      "name",
+      "start_date",
+      "end_date",
+      "origin_city",
+      "description"
+    ]
+  },
+  "copy": {
+    "status": 200,
+    "body": {
+      "trip_id": 6
+    }
+  }
+}

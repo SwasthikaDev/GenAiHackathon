@@ -1,0 +1,388 @@
+{
+  "base": "https://mako-golden-tetra.ngrok-free.app/api",
+  "username": "apitest_1754921556",
+  "check_username": {
+    "status": 200,
+    "body": {
+      "username": "apitest_1754921556",
+      "available": true
+    }
+  },
+  "checks": {
+    "check_username_ok": {
+      "pass": true,
+      "details": {
+        "status": 200,
+        "body": {
+          "username": "apitest_1754921556",
+          "available": true
+        }
+      }
+    },
+    "signup_status_ok": {
+      "pass": true,
+      "details": {
+        "status": 201,
+        "body": {
+          "username": "apitest_1754921556",
+          "email": "apitest_1754921556@example.com",
+          "display_name": "",
+          "avatar_url": "",
+          "phone_number": "",
+          "city": "",
+          "country": "",
+          "bio": ""
+        }
+      }
+    },
+    "login_ok": {
+      "pass": true,
+      "details": {
+        "status": 200,
+        "body": {
+          "refresh": "<redacted>",
+          "access": "<redacted>"
+        }
+      }
+    },
+    "recs_ok": {
+      "pass": true,
+      "details": {
+        "status": 200,
+        "body": {
+          "bannerTitle": "Global Wonders Await Your Discovery",
+          "blurb": "Handpicked destinations for unforgettable adventures and cultural immersion.",
+          "topSelections": [
+            {
+              "name": "Santorini",
+              "country": "Greece",
+              "reason": "Stunning sunsets and whitewashed villages"
+            },
+            {
+              "name": "Kyoto",
+              "country": "Japan",
+              "reason": "Ancient temples and serene gardens"
+            },
+            {
+              "name": "Banff National Park",
+              "country": "Canada",
+              "reason": "Turquoise lakes and mountain adventures"
+            },
+            {
+              "name": "Safari Serengeti",
+              "country": "Tanzania",
+              "reason": "Wildlife spectacles and vast plains"
+            },
+            {
+              "name": "Barcelona",
+              "country": "Spain",
+              "reason": "Gaudi architecture and vibrant street life"
+            },
+            {
+              "name": "Queenstown",
+              "country": "New Zealand",
+              "reason": "Adventure sports and alpine scenery"
+            }
+          ],
+          "groupings": [
+            "Beach Escapes",
+            "Mountain Adventures",
+            "Cultural Capitals"
+          ],
+          "sortOptions": [
+            "Popularity",
+            "Budget",
+            "Luxury",
+            "Adventure Level"
+          ],
+          "source": "openrouter"
+        }
+      }
+    },
+    "search_cities_ok": {
+      "pass": true,
+      "details": {
+        "status": 200,
+        "count": 4
+      }
+    },
+    "ensure_city_ok": {
+      "pass": true,
+      "details": {
+        "status": 200,
+        "body": {
+          "id": 3,
+          "name": "Paris",
+          "country": "France",
+          "region": "",
+          "cost_index": null,
+          "popularity": null
+        }
+      }
+    },
+    "create_trip_ok": {
+      "pass": true,
+      "details": {
+        "status": 201,
+        "body": {
+          "id": 3,
+          "name": "API Test Trip 1754921556",
+          "start_date": "2025-09-10",
+          "end_date": "2025-09-14",
+          "origin_city": {
+            "id": 3,
+            "name": "Paris",
+            "country": "France",
+            "region": "",
+            "cost_index": null,
+            "popularity": null
+          },
+          "description": "",
+          "cover_image": "",
+          "is_public": false,
+          "public_slug": null,
+          "stops": []
+        }
+      }
+    },
+    "add_stop_ok": {
+      "pass": true,
+      "details": {
+        "status": 201,
+        "body": {
+          "id": 3,
+          "trip": 3,
+          "city": {
+            "id": 3,
+            "name": "Paris",
+            "country": "France",
+            "region": "",
+            "cost_index": null,
+            "popularity": null
+          },
+          "start_date": "2025-09-10",
+          "end_date": "2025-09-12",
+          "order": 1,
+          "activities": []
+        }
+      }
+    },
+    "add_activity_ok": {
+      "pass": true,
+      "details": {
+        "status": 201,
+        "body": {
+          "id": 2,
+          "trip_stop": 3,
+          "title": "Walking Tour",
+          "category": "sightseeing",
+          "start_time": null,
+          "end_time": null,
+          "cost_amount": 2500,
+          "currency": "INR",
+          "notes": ""
+        }
+      }
+    },
+    "budget_ok": {
+      "pass": true,
+      "details": {
+        "status": 200,
+        "body": {
+          "trip_id": 3,
+          "currency": "USD",
+          "total_cost_minor": 2500
+        }
+      }
+    },
+    "share_ok": {
+      "pass": true,
+      "details": {
+        "status": 200,
+        "body": {
+          "public_slug": "6-api-test-trip-1754921556-3"
+        }
+      }
+    },
+    "public_ok": {
+      "pass": true,
+      "details": {
+        "status": 200,
+        "body_sample_keys": [
+          "id",
+          "name",
+          "start_date",
+          "end_date",
+          "origin_city",
+          "description"
+        ]
+      }
+    }
+  },
+  "signup": {
+    "status": 201,
+    "body": {
+      "username": "apitest_1754921556",
+      "email": "apitest_1754921556@example.com",
+      "display_name": "",
+      "avatar_url": "",
+      "phone_number": "",
+      "city": "",
+      "country": "",
+      "bio": ""
+    }
+  },
+  "login": {
+    "status": 200,
+    "body": {
+      "refresh": "<redacted>",
+      "access": "<redacted>"
+    }
+  },
+  "recs": {
+    "status": 200,
+    "body": {
+      "bannerTitle": "Global Wonders Await Your Discovery",
+      "blurb": "Handpicked destinations for unforgettable adventures and cultural immersion.",
+      "topSelections": [
+        {
+          "name": "Santorini",
+          "country": "Greece",
+          "reason": "Stunning sunsets and whitewashed villages"
+        },
+        {
+          "name": "Kyoto",
+          "country": "Japan",
+          "reason": "Ancient temples and serene gardens"
+        },
+        {
+          "name": "Banff National Park",
+          "country": "Canada",
+          "reason": "Turquoise lakes and mountain adventures"
+        },
+        {
+          "name": "Safari Serengeti",
+          "country": "Tanzania",
+          "reason": "Wildlife spectacles and vast plains"
+        },
+        {
+          "name": "Barcelona",
+          "country": "Spain",
+          "reason": "Gaudi architecture and vibrant street life"
+        },
+        {
+          "name": "Queenstown",
+          "country": "New Zealand",
+          "reason": "Adventure sports and alpine scenery"
+        }
+      ],
+      "groupings": [
+        "Beach Escapes",
+        "Mountain Adventures",
+        "Cultural Capitals"
+      ],
+      "sortOptions": [
+        "Popularity",
+        "Budget",
+        "Luxury",
+        "Adventure Level"
+      ],
+      "source": "openrouter"
+    }
+  },
+  "search_cities": {
+    "status": 200,
+    "count": 4
+  },
+  "ensure_city": {
+    "status": 200,
+    "body": {
+      "id": 3,
+      "name": "Paris",
+      "country": "France",
+      "region": "",
+      "cost_index": null,
+      "popularity": null
+    }
+  },
+  "create_trip": {
+    "status": 201,
+    "body": {
+      "id": 3,
+      "name": "API Test Trip 1754921556",
+      "start_date": "2025-09-10",
+      "end_date": "2025-09-14",
+      "origin_city": {
+        "id": 3,
+        "name": "Paris",
+        "country": "France",
+        "region": "",
+        "cost_index": null,
+        "popularity": null
+      },
+      "description": "",
+      "cover_image": "",
+      "is_public": false,
+      "public_slug": null,
+      "stops": []
+    }
+  },
+  "add_stop": {
+    "status": 201,
+    "body": {
+      "id": 3,
+      "trip": 3,
+      "city": {
+        "id": 3,
+        "name": "Paris",
+        "country": "France",
+        "region": "",
+        "cost_index": null,
+        "popularity": null
+      },
+      "start_date": "2025-09-10",
+      "end_date": "2025-09-12",
+      "order": 1,
+      "activities": []
+    }
+  },
+  "add_activity": {
+    "status": 201,
+    "body": {
+      "id": 2,
+      "trip_stop": 3,
+      "title": "Walking Tour",
+      "category": "sightseeing",
+      "start_time": null,
+      "end_time": null,
+      "cost_amount": 2500,
+      "currency": "INR",
+      "notes": ""
+    }
+  },
+  "budget": {
+    "status": 200,
+    "body": {
+      "trip_id": 3,
+      "currency": "USD",
+      "total_cost_minor": 2500
+    }
+  },
+  "share": {
+    "status": 200,
+    "body": {
+      "public_slug": "6-api-test-trip-1754921556-3"
+    }
+  },
+  "public": {
+    "status": 200,
+    "body_sample_keys": [
+      "id",
+      "name",
+      "start_date",
+      "end_date",
+      "origin_city",
+      "description"
+    ]
+  }
+}
