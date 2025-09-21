@@ -1,5 +1,10 @@
-# API proxy to backend
-/api/* https://your-backend-domain.com/api/:splat 200
+# API proxy to backend - REPLACE WITH YOUR ACTUAL BACKEND URL
+# Examples:
+# For Heroku: /api/* https://globaltrotters-backend.herokuapp.com/api/:splat 200
+# For Railway: /api/* https://your-app.railway.app/api/:splat 200  
+# For Render: /api/* https://your-app.onrender.com/api/:splat 200
+
+/api/* https://REPLACE-WITH-YOUR-BACKEND-URL.herokuapp.com/api/:splat 200
 
 # SPA fallback for client-side routing
 /* /index.html 200 
